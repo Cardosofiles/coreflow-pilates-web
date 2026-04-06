@@ -52,3 +52,21 @@
 - coreflow-pilares-web
 
 OBS: TODO O FLUXO SERÁ EM PULL REQUEST
+
+## DOCUMENTAÇÃO
+
+### REACT.JS
+
+- https://react.dev/
+
+### NEXT.JS
+
+- https://nextjs.org/
+
+### TANSTACK QUERY
+
+- https://tanstack.com/query/latest
+
+### TAILWINDCSS
+
+- https://tailwindcss.com/
