@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { geist } from '@/utils/fonts'
 
 import '@/styles/globals.css'
+import { TanstackQueryProvider } from '@/providers/tanstack-query'
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={cn(geist.variable, 'antialiased')}>
-      <body>{children}</body>
+      <body>
+        <TanstackQueryProvider>{children}</TanstackQueryProvider>
+      </body>
     </html>
   )
 }
