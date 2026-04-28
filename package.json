@@ -36,6 +36,9 @@
     "vaul": "^1.1.2",
     "zod": "^4.3.6"
   },
+  "pnpm": {
+    "ignoredBuiltDependencies": ["sharp", "unrs-resolver"]
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
