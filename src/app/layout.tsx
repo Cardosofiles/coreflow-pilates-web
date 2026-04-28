@@ -5,6 +5,7 @@ import { geist } from '@/utils/fonts'
 
 import '@/styles/globals.css'
 import { TanstackQueryProvider } from '@/providers/tanstack-query'
+import { NextThemeProvider } from '@/providers/next-themes'
 
 export const metadata: Metadata = {
   title: {
@@ -21,9 +22,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={cn(geist.variable, 'antialiased')}>
+    <html lang="pt-BR" className={cn(geist.variable, 'antialiased')} suppressHydrationWarning>
       <body>
-        <TanstackQueryProvider>{children}</TanstackQueryProvider>
+        <NextThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TanstackQueryProvider>{children}</TanstackQueryProvider>
+        </NextThemeProvider>
       </body>
     </html>
   )
