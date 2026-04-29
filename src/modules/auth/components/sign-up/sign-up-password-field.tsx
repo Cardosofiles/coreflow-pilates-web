@@ -69,7 +69,6 @@ const SignUpPasswordField = ({ control, disabled }: SignUpPasswordFieldProps): J
               className="absolute top-1/2 right-2 h-6 w-6 -translate-y-1/2 cursor-pointer text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               onClick={() => setShowPassword(p => !p)}
               aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
-              tabIndex={-1}
             >
               <Icon className="h-4 w-4" />
             </Button>
