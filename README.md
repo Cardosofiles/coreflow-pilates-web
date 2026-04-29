@@ -99,176 +99,174 @@ utils/        → Funções puras sem side-effects
 
 ```
 coreflow-pilates-web/
-├── public/                          # Arquivos estáticos (imagens, ícones, fontes)
-│   ├── images/
-│   └── favicon.ico
+├── public/                          # Arquivos estáticos
 │
 ├── src/
 │   │
 │   ├── app/                         # 🗺️ Next.js App Router — SOMENTE rotas
 │   │   ├── (auth)/                  # Route Group — sem prefixo na URL
-│   │   │   ├── login/
+│   │   │   ├── layout.tsx
+│   │   │   ├── sign-in/
 │   │   │   │   └── page.tsx
-│   │   │   └── register/
+│   │   │   └── sign-up/
 │   │   │       └── page.tsx
 │   │   │
 │   │   ├── (dashboard)/             # Route Group — área autenticada
-│   │   │   ├── layout.tsx           # Layout com Sidebar + Header
-│   │   │   ├── schedule/            # Agenda de aulas
-│   │   │   │   ├── page.tsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.tsx
-│   │   │   ├── students/            # Gestão de alunos
-│   │   │   │   ├── page.tsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.tsx
-│   │   │   ├── instructors/         # Gestão de instrutores
+│   │   │   ├── layout.tsx           # Layout com Sidebar
+│   │   │   ├── agenda/
 │   │   │   │   └── page.tsx
-│   │   │   ├── plans/               # Planos e mensalidades
+│   │   │   ├── alertas/
 │   │   │   │   └── page.tsx
-│   │   │   ├── equipment/           # Aparelhos de pilates
+│   │   │   ├── aparelhos/
 │   │   │   │   └── page.tsx
-│   │   │   └── modalities/          # Modalidades de aula
+│   │   │   ├── dashboard/
+│   │   │   │   └── page.tsx
+│   │   │   ├── matricula/
+│   │   │   │   └── page.tsx
+│   │   │   ├── planos/
+│   │   │   │   └── page.tsx
+│   │   │   └── usuarios/
 │   │   │       └── page.tsx
 │   │   │
-│   │   ├── api/                     # Route Handlers (Next.js API)
-│   │   │   └── [...]/
-│   │   │       └── route.ts
-│   │   │
 │   │   ├── layout.tsx               # Root Layout
-│   │   ├── page.tsx                 # Landing page pública
-│   │   ├── not-found.tsx            # Página 404
-│   │   └── globals.css              # Estilos globais + Tailwind
+│   │   └── page.tsx                 # Landing page pública
 │   │
 │   ├── modules/                     # ⭐ CORE — Lógica de negócio por feature
 │   │   │
 │   │   ├── auth/                    # 🔐 Autenticação
-│   │   │   ├── components/
-│   │   │   │   ├── login-form.tsx
-│   │   │   │   └── register-form.tsx
-│   │   │   ├── hooks/
-│   │   │   │   ├── use-login.ts
-│   │   │   │   └── use-register.ts
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
 │   │   │   ├── actions/
-│   │   │   │   └── auth-actions.ts  # Server Actions
-│   │   │   ├── schemas/
-│   │   │   │   └── auth-schema.ts   # Zod schemas
-│   │   │   └── types/
-│   │   │       └── auth.types.ts
-│   │   │
-│   │   ├── schedule/                # 📅 Agendamentos
+│   │   │   │   └── index.ts
 │   │   │   ├── components/
-│   │   │   │   ├── schedule-calendar.tsx
-│   │   │   │   ├── schedule-card.tsx
-│   │   │   │   └── schedule-form.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── layout/
+│   │   │   │   │   └── auth-panel.tsx
+│   │   │   │   ├── sign-in/
+│   │   │   │   │   ├── sign-in-email-field.tsx
+│   │   │   │   │   ├── sign-in-form.tsx
+│   │   │   │   │   └── sign-in-password-field.tsx
+│   │   │   │   └── sign-up/
+│   │   │   │       ├── sign-up-confirm-password-field.tsx
+│   │   │   │       ├── sign-up-email-field.tsx
+│   │   │   │       ├── sign-up-form.tsx
+│   │   │   │       ├── sign-up-name-field.tsx
+│   │   │   │       └── sign-up-password-field.tsx
 │   │   │   ├── hooks/
-│   │   │   │   ├── use-get-schedule.ts
-│   │   │   │   └── use-create-schedule.ts
-│   │   │   ├── actions/
-│   │   │   │   └── schedule-actions.ts
+│   │   │   │   └── index.ts
 │   │   │   ├── schemas/
-│   │   │   │   └── schedule-schema.ts
+│   │   │   │   ├── auth.schema.ts
+│   │   │   │   └── index.ts
 │   │   │   └── types/
-│   │   │       └── schedule.types.ts
+│   │   │       ├── auth.types.ts
+│   │   │       └── index.ts
 │   │   │
-│   │   ├── students/                # 🧑 Alunos
-│   │   │   ├── components/
-│   │   │   │   ├── student-table.tsx
-│   │   │   │   ├── student-card.tsx
-│   │   │   │   └── student-form.tsx
-│   │   │   ├── hooks/
-│   │   │   │   ├── use-get-students.ts
-│   │   │   │   └── use-update-student.ts
-│   │   │   ├── actions/
-│   │   │   │   └── student-actions.ts
-│   │   │   ├── schemas/
-│   │   │   │   └── student-schema.ts
-│   │   │   └── types/
-│   │   │       └── student.types.ts
+│   │   ├── agenda/                  # 📅 Agenda de aulas
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │   │   ├── actions/index.ts
+│   │   │   ├── components/index.ts
+│   │   │   ├── hooks/index.ts
+│   │   │   ├── schemas/index.ts
+│   │   │   └── types/index.ts
 │   │   │
-│   │   ├── instructors/             # 👩‍🏫 Instrutores
-│   │   │   ├── components/
-│   │   │   ├── hooks/
-│   │   │   ├── actions/
-│   │   │   ├── schemas/
-│   │   │   └── types/
+│   │   ├── alertas/                 # 🔔 Alertas e notificações
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │   │   ├── actions/index.ts
+│   │   │   ├── components/index.ts
+│   │   │   ├── hooks/index.ts
+│   │   │   ├── schemas/index.ts
+│   │   │   └── types/index.ts
 │   │   │
-│   │   ├── plans/                   # 💳 Planos e mensalidades
-│   │   │   ├── components/
-│   │   │   │   ├── plan-card.tsx
-│   │   │   │   └── plan-expiry-alert.tsx   # Alerta de vencimento
-│   │   │   ├── hooks/
-│   │   │   │   └── use-get-plans.ts
-│   │   │   ├── actions/
-│   │   │   ├── schemas/
-│   │   │   └── types/
+│   │   ├── aparelhos/               # 🏋️ Aparelhos de pilates
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │   │   ├── actions/index.ts
+│   │   │   ├── components/index.ts
+│   │   │   ├── hooks/index.ts
+│   │   │   ├── schemas/index.ts
+│   │   │   └── types/index.ts
 │   │   │
-│   │   ├── equipment/               # 🏋️ Aparelhos
-│   │   │   ├── components/
-│   │   │   ├── hooks/
-│   │   │   ├── actions/
-│   │   │   ├── schemas/
-│   │   │   └── types/
+│   │   ├── dashboard/               # 📊 Visão geral
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │   │   ├── actions/index.ts
+│   │   │   ├── components/index.ts
+│   │   │   ├── hooks/index.ts
+│   │   │   ├── schemas/index.ts
+│   │   │   └── types/index.ts
 │   │   │
-│   │   └── modalities/              # 🤸 Modalidades de aula
-│   │       ├── components/
-│   │       ├── hooks/
-│   │       ├── actions/
-│   │       ├── schemas/
-│   │       └── types/
+│   │   ├── matricula/               # 📋 Matrículas de alunos
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │   │   ├── actions/index.ts
+│   │   │   ├── components/index.ts
+│   │   │   ├── hooks/index.ts
+│   │   │   ├── schemas/index.ts
+│   │   │   └── types/index.ts
+│   │   │
+│   │   ├── planos/                  # 💳 Planos e mensalidades
+│   │   │   ├── index.ts             # Barrel público (client-safe)
+│   │   │   ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │   │   ├── actions/index.ts
+│   │   │   ├── components/index.ts
+│   │   │   ├── hooks/index.ts
+│   │   │   ├── schemas/index.ts
+│   │   │   └── types/index.ts
+│   │   │
+│   │   └── usuarios/                # 👤 Gestão de usuários
+│   │       ├── index.ts             # Barrel público (client-safe)
+│   │       ├── index.server.ts      # Barrel de Server Actions ("use server")
+│   │       ├── actions/index.ts
+│   │       ├── components/index.ts
+│   │       ├── hooks/index.ts
+│   │       ├── schemas/index.ts
+│   │       └── types/index.ts
 │   │
 │   ├── components/                  # 🧩 Componentes GLOBAIS reutilizáveis
 │   │   ├── ui/                      # Shadcn UI (gerados automaticamente — não editar)
 │   │   │   ├── button.tsx
 │   │   │   ├── input.tsx
 │   │   │   ├── dialog.tsx
-│   │   │   ├── table.tsx
-│   │   │   └── ...
-│   │   ├── layout/                  # Estrutura visual global
-│   │   │   ├── header.tsx
 │   │   │   ├── sidebar.tsx
-│   │   │   ├── footer.tsx
-│   │   │   └── page-wrapper.tsx
-│   │   └── common/                  # Componentes utilitários reutilizáveis
-│   │       ├── data-table.tsx       # Tabela paginada genérica
-│   │       ├── empty-state.tsx      # Estado vazio padrão
-│   │       ├── loading-spinner.tsx
-│   │       ├── error-boundary.tsx
-│   │       └── page-header.tsx
+│   │   │   └── ...
+│   │   └── layout/                  # Estrutura visual global
+│   │       ├── sidebar/
+│   │       │   ├── command-sidebar-dialog.tsx
+│   │       │   ├── first-sidebar-data.tsx
+│   │       │   ├── generated-sidebar-avatar.tsx
+│   │       │   ├── navbar-sidebar-search.tsx
+│   │       │   ├── second-sidebar-data.tsx
+│   │       │   ├── sidebar-view.tsx
+│   │       │   └── user-sidebar-button.tsx
+│   │       └── themes/
+│   │           └── mode-toggle.tsx
 │   │
-│   ├── lib/                         # ⚙️ Configuração de bibliotecas externas
-│   │   ├── auth.ts                  # Better Auth config
-│   │   ├── axios.ts                 # Instância Axios com interceptors
-│   │   ├── query-client.ts          # TanStack Query client config
-│   │   └── utils.ts                 # cn() e helpers de lib (Shadcn)
+│   ├── data/                        # 🗃️ Dados estáticos e mocks
+│   │   ├── mock-session.ts
+│   │   └── sidebar-items.ts
 │   │
 │   ├── hooks/                       # 🪝 Hooks GLOBAIS (não ligados a módulo)
-│   │   ├── use-debounce.ts
-│   │   ├── use-media-query.ts
-│   │   └── use-local-storage.ts
+│   │   └── use-mobile.ts
+│   │
+│   ├── lib/                         # ⚙️ Configuração de bibliotecas externas
+│   │   ├── api.ts                   # Instância Axios com interceptors
+│   │   └── utils.ts                 # cn() e helpers de lib (Shadcn)
 │   │
 │   ├── providers/                   # 🌐 Context Providers globais
-│   │   ├── query-provider.tsx       # TanStack Query Provider
-│   │   ├── auth-provider.tsx        # Better Auth Session Provider
-│   │   └── theme-provider.tsx       # next-themes
+│   │   ├── next-themes.tsx          # next-themes Provider
+│   │   └── tanstack-query.tsx       # TanStack Query Provider
 │   │
-│   ├── schemas/                     # 📐 Schemas Zod GLOBAIS
-│   │   └── common-schema.ts         # Schemas compartilhados (paginação, etc.)
+│   ├── styles/                      # 🎨 Estilos globais e tokens CSS
+│   │   └── globals.css
 │   │
 │   ├── types/                       # 🏷️ Types e interfaces GLOBAIS
-│   │   ├── api.ts                   # ApiResponse<T>, Pagination, ErrorResponse
-│   │   └── next-auth.d.ts           # Extensão de tipos do NextAuth
+│   │   └── globals.d.ts
 │   │
-│   ├── utils/                       # 🛠️ Funções puras utilitárias
-│   │   ├── format.ts                # formatCurrency, formatDate, formatPhone
-│   │   ├── validators.ts            # CPF, telefone, etc.
-│   │   └── constants.ts             # Constantes globais da aplicação
-│   │
-│   └── styles/                      # 🎨 Estilos globais e tokens CSS
-│       └── globals.css
+│   └── utils/                       # 🛠️ Funções puras utilitárias
+│       └── fonts.ts
 │
-├── docs/                            # 📚 Documentação do projeto
-├── .vscode/                         # Configurações do VS Code para o time
 ├── .gitignore
 ├── .prettierrc.json
 ├── components.json                  # Config do Shadcn UI
@@ -296,6 +294,7 @@ Antes de criar um arquivo, responda:
 | Componente gerado pelo Shadcn? | Sim | `components/ui/` *(não editar manualmente)* |
 | Função pura sem side-effects? | Sim | `utils/` |
 | Schema de validação de formulário? | Sim | `modules/[feature]/schemas/` |
+| Server Action (`"use server"`)? | Sim | `modules/[feature]/actions/` — importe via `index.server.ts` |
 
 ---
 
@@ -444,6 +443,14 @@ Você é um assistente de desenvolvimento para o projeto CoreFlow Pilates Web.
    - Hooks de módulo seguem o padrão: use-get-[resource].ts, use-create-[resource].ts, use-update-[resource].ts
    - Schemas Zod ficam DENTRO do módulo, não na pasta global
    - Server Actions ficam em actions/[feature]-actions.ts
+   - NUNCA exporte Server Actions pelo index.ts principal — use index.server.ts
+   - index.ts → client-safe: exporta types, components, schemas, hooks
+     Exemplo: `export * from './components'`
+              `export * from './schemas'`
+              `export * from './hooks'`
+              `export type * from './types'`
+   - index.server.ts → re-exporta tudo de actions/ exclusivamente ("use server")
+     Exemplo: `export * from './actions'`
 
 2. COMPONENTES GLOBAIS (`src/components/`)
    - ui/        → Apenas componentes gerados pelo Shadcn (NUNCA editar manualmente)

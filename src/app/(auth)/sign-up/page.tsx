@@ -1,9 +1,9 @@
 import type { JSX } from 'react'
 
-import { SignUp } from '@/modules/auth'
+import { SignUpForm } from '@/modules/auth'
 
 const SignUpPage = (): JSX.Element => {
-  return <SignUp />
+  return <SignUpForm />
 }
 
 export default SignUpPage
