@@ -1,7 +1,6 @@
 <div align="center" id="top">
 
 <h1 align="center">Projeto v2 Análise de Sistema I 💻 — CoreFlow Estúdio de Pilates</h1>
-<h2>Repositório Front-end</h2>
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
