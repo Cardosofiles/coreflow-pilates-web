@@ -445,10 +445,10 @@ Você é um assistente de desenvolvimento para o projeto CoreFlow Pilates Web.
    - Server Actions ficam em actions/[feature]-actions.ts
    - NUNCA exporte Server Actions pelo index.ts principal — use index.server.ts
    - index.ts → client-safe: exporta types, components, schemas, hooks
-     Exemplo: `export type { SignInFormData } from './types'`
-              `export { SignInForm, AuthPanel } from './components'`
-              `export { signInFormSchema } from './schemas'`
-              `export {} from './hooks'`
+     Exemplo: `export * from './components'`
+              `export * from './schemas'`
+              `export * from './hooks'`
+              `export type * from './types'`
    - index.server.ts → re-exporta tudo de actions/ exclusivamente ("use server")
      Exemplo: `export * from './actions'`
 
