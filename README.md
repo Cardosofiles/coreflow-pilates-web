@@ -17,6 +17,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
+[![CodeRabbit](https://img.shields.io/badge/CodeRabbit-FF570A?style=for-the-badge&logo=rabbitmq&logoColor=white)](https://coderabbit.ai/)
 
 <h3>
 O Estúdio CoreFlow é uma academia de pilates que oferece aulas personalizadas para seus clientes. O objetivo deste projeto é desenvolver um sistema de frontend robusto e escalável para gerenciar as operações da academia, incluindo o gerenciamento de alunos, instrutores, aparelhos, modalidades, planos, aulas individuais e agenda. O sistema também deve ser capaz de exibir notificações para os alunos quando seus planos estiverem prestes a expirar.
@@ -509,6 +510,15 @@ Agradecemos à equipe da Vercel pela criação e manutenção do **Next.js** —
 O deploy contínuo do projeto é feito na Cloudflare, com integração direta ao GitHub via **Cloudflare Workers** (configurado com `open-next.config.ts` e `wrangler.jsonc`). Cada push na branch `main` gera automaticamente um deploy de produção na edge, entregando a aplicação ao usuário final com baixa latência e disponibilidade global.
 
 [![Cloudflare](https://img.shields.io/badge/Obrigado_Cloudflare!-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
+
+---
+
+### 🐇 CodeRabbit
+> *"AI Code Reviews that Ship Code Faster"*
+
+O [CodeRabbit](https://coderabbit.ai/) foi utilizado como revisor de código com IA integrado ao GitHub. A cada Pull Request aberto, o CodeRabbit analisa automaticamente as mudanças linha por linha, sugere melhorias, aponta bugs e gera resumos do PR — funcionando como um revisor sênior disponível 24h. Para um time de estudantes, essa ferramenta foi essencial para garantir qualidade de código e aprendizado contínuo durante o desenvolvimento.
+
+[![CodeRabbit](https://img.shields.io/badge/Obrigado_CodeRabbit!-FF570A?style=for-the-badge&logo=rabbitmq&logoColor=white)](https://coderabbit.ai/)
 
 ---
 
