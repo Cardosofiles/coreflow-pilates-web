@@ -478,6 +478,15 @@ Nunca crie arquivos fora da estrutura definida acima sem justificativa.
 
 Crie o arquivo `.github/copilot-instructions.md` na raiz do projeto com o conteúdo do prompt acima. O Copilot lerá automaticamente as instruções em toda a sessão.
 
+### 💡 Como usar no Claude Code
+
+Crie o arquivo `CLAUDE.md` na raiz do projeto com o conteúdo do prompt acima. O Claude Code lerá automaticamente as instruções em toda a sessão.
+
+### 💡 Como usar no Gemini CLI
+
+Crie o arquivo `GEMINI.md` na raiz do projeto com o conteúdo do prompt acima. O Gemini CLI lerá automaticamente as instruções em toda a sessão.
+
+
 ---
 
 <h1 id="thanks">🙏 Agradecimentos</h1>
