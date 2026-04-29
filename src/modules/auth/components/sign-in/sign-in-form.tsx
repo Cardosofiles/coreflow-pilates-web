@@ -6,7 +6,8 @@ import { useState, type JSX } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
-import { SignInEmailField, SignInPasswordField } from '@/modules/auth/components'
+import { SignInEmailField } from './sign-in-email-field'
+import { SignInPasswordField } from './sign-in-password-field'
 import type { SignInFormData } from '@/modules/auth/types'
 
 const SignInForm = (): JSX.Element => {
