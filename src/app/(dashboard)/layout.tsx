@@ -1,8 +1,8 @@
 import type { JSX } from 'react'
 
 import { SidebarProvider } from '@/components/ui/sidebar'
-import { DashboardView } from '@/components/sidebar/sidebar-view'
-import { NavbarSidebarSearch } from '@/components/sidebar/navbar-sidebar-search'
+import { DashboardView } from '@/components/layout/sidebar/sidebar-view'
+import { NavbarSidebarSearch } from '@/components/layout/sidebar/navbar-sidebar-search'
 
 interface DashboardProps {
   children: React.ReactNode

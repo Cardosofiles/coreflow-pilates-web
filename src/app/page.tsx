@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import { ModeToggle } from '@/components/themes/mode-toggle'
+import { ModeToggle } from '@/components/layout/themes/mode-toggle'
 
 const equipment = [
   { name: 'Reformer', abbr: 'RF', angle: -10 },

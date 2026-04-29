@@ -1,9 +1,10 @@
-import { AuthPanel } from '@/app/(auth)/_component/auth-panel'
-import { ModeToggle } from '@/components/themes/mode-toggle'
-import { Button } from '@/components/ui/button'
-
 import type { Metadata } from 'next'
+
 import Link from 'next/link'
+
+import { ModeToggle } from '@/components/layout/themes/mode-toggle'
+import { Button } from '@/components/ui/button'
+import { AuthPanel } from '@/modules/auth/components'
 
 export const metadata: Metadata = {
   title: 'Autenticação',
