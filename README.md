@@ -22,7 +22,7 @@
 O Estúdio CoreFlow é uma academia de pilates que oferece aulas personalizadas para seus clientes. O objetivo deste projeto é desenvolver um sistema de frontend robusto e escalável para gerenciar as operações da academia, incluindo o gerenciamento de alunos, instrutores, aparelhos, modalidades, planos, aulas individuais e agenda. O sistema também deve ser capaz de exibir notificações para os alunos quando seus planos estiverem prestes a expirar.
 </h3>
 
-[![My Skills](https://skillicons.dev/icons?i=ts,react,next,tailwind,git,github,vscode)](https://skillicons.dev)
+<!-- [![My Skills](https://skillicons.dev/icons?i=ts,react,next,tailwind,git,github,vscode)](https://skillicons.dev) -->
 
 </div>
 
