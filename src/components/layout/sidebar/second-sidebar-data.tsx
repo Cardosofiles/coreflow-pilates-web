@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/sidebar'
 
 import { secondSidebarData } from '@/data/sidebar-items'
-
+import { useUserPapel } from '@/context/user-context'
 import { cn } from '@/lib/utils'
 
 interface SecondSidebarDataProps {
@@ -21,11 +21,17 @@ interface SecondSidebarDataProps {
 }
 
 const SecondSidebarData = ({ pathName }: SecondSidebarDataProps): JSX.Element => {
+  const papel = useUserPapel()
+
+  const visibleItems = secondSidebarData.filter(
+    item => !item.roles || item.roles.includes(papel as never),
+  )
+
   return (
     <SidebarGroup>
       <SidebarGroupContent>
         <SidebarMenu>
-          {secondSidebarData.map(item => {
+          {visibleItems.map(item => {
             const Icon = item.icon
             return (
               <SidebarMenuItem key={item.id}>
