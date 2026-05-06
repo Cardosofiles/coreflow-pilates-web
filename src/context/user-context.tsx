@@ -5,8 +5,8 @@ import { createContext, useContext, useState, type JSX, type ReactNode } from 'r
 import type { PapelUsuario, Usuario } from '@/modules/auth'
 
 interface UserContextValue {
-  usuario: Usuario | null
-  setUsuario: (u: Usuario | null) => void
+  user: Usuario | null
+  setUser: (u: Usuario | null) => void
 }
 
 const UserContext = createContext<UserContextValue | null>(null)
@@ -16,17 +16,9 @@ interface UserProviderProps {
 }
 
 const UserProvider = ({ children }: UserProviderProps): JSX.Element => {
-  const [usuario, setUsuario] = useState<Usuario | null>(() => {
-    if (typeof window === 'undefined') return null
-    try {
-      const raw = localStorage.getItem('usuario')
-      return raw ? (JSON.parse(raw) as Usuario) : null
-    } catch {
-      return null
-    }
-  })
+  const [user, setUser] = useState<Usuario | null>(null)
 
-  return <UserContext.Provider value={{ usuario, setUsuario }}>{children}</UserContext.Provider>
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>
 }
 
 const useUser = (): UserContextValue => {
@@ -36,8 +28,8 @@ const useUser = (): UserContextValue => {
 }
 
 const useUserPapel = (): PapelUsuario | null => {
-  const { usuario } = useUser()
-  return usuario?.papel ?? null
+  const { user } = useUser()
+  return user?.papel ?? null
 }
 
 export { UserProvider, useUser, useUserPapel }

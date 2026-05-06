@@ -7,15 +7,19 @@ import {
   CreditCard,
   Dumbbell,
   LayoutDashboard,
-  StarIcon,
+  ShieldUser,
   Users,
+  UserStar,
 } from 'lucide-react'
+
+import type { PapelUsuario } from '@/modules/auth'
 
 type SidebarItem = {
   id: number
   icon: ElementType<SVGProps<SVGSVGElement>>
   label: string
   href: string
+  roles?: PapelUsuario[]
 }
 
 export type SidebarData = SidebarItem[]
@@ -27,10 +31,12 @@ const firstSidebarData: SidebarData = [
 ]
 
 const secondSidebarData: SidebarData = [
-  { id: 1, icon: CreditCard, label: 'Planos', href: '/planos' },
-  { id: 2, icon: Users, label: 'Usuários', href: '/usuarios' },
-  { id: 3, icon: Dumbbell, label: 'Aparelhos', href: '/aparelhos' },
-  { id: 4, icon: Bell, label: 'Alertas', href: '/alertas' },
+  { id: 1, icon: ShieldUser, label: 'Administrativo', href: '/admin/dashboard', roles: ['ADMIN'] },
+  { id: 2, icon: UserStar, label: 'Instrutores', href: '/instrutor/dashboard', roles: ['INSTRUTOR'] },
+  { id: 3, icon: CreditCard, label: 'Planos', href: '/planos', roles: ['ADMIN'] },
+  { id: 4, icon: Users, label: 'Alunos', href: '/aluno/dashboard', roles: ['ALUNO'] },
+  { id: 5, icon: Dumbbell, label: 'Aparelhos', href: '/aparelhos', roles: ['ADMIN'] },
+  { id: 6, icon: Bell, label: 'Alertas', href: '/alertas', roles: ['ADMIN'] },
 ]
 
 export { firstSidebarData, secondSidebarData }

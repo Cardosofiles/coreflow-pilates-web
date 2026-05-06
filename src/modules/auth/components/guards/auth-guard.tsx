@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, type JSX } from 'react'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 
 import { api } from '@/lib/api'
@@ -13,11 +14,11 @@ interface AuthGuardProps {
 
 const AuthGuard = ({ children }: AuthGuardProps): JSX.Element | null => {
   const router = useRouter()
-  const { setUsuario } = useUser()
+  const { setUser } = useUser()
   const [verified, setVerified] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token')
+    const token = Cookies.get('access_token')
     if (!token) {
       router.replace('/sign-in')
       return
@@ -26,20 +27,15 @@ const AuthGuard = ({ children }: AuthGuardProps): JSX.Element | null => {
     api
       .get<Usuario>('/auth/me')
       .then(response => {
-        const fresh = response.data
-        setUsuario(fresh)
-        localStorage.setItem('usuario', JSON.stringify(fresh))
-        document.cookie = `usuario_papel=${fresh.papel}; path=/; SameSite=Strict`
+        setUser(response.data)
         setVerified(true)
       })
       .catch(() => {
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('usuario')
-        document.cookie = 'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
-        document.cookie = 'usuario_papel=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+        Cookies.remove('access_token')
+        Cookies.remove('usuario_papel')
         router.replace('/sign-in')
       })
-  }, [router, setUsuario])
+  }, [router, setUser])
 
   if (!verified) return null
   return <>{children}</>

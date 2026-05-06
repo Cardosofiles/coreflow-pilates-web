@@ -1,42 +1,38 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState, type JSX } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 import { SignInEmailField } from './sign-in-email-field'
 import { SignInPasswordField } from './sign-in-password-field'
+import { signInFormSchema } from '@/modules/auth/schemas'
 import type { SignInFormData } from '@/modules/auth/types'
+import { useAuth } from '@/modules/auth/hooks'
 
 const SignInForm = (): JSX.Element => {
-  const router = useRouter()
+  const { login } = useAuth()
   const [serverError, setServerError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
   const form = useForm<SignInFormData>({
-    // resolver: zodResolver(signInFormSchema),
-    // defaultValues: {
-    //   email: '',
-    //   password: '',
-    // },
+    defaultValues: { email: '', password: '' },
   })
 
   const handleSignIn = async (data: SignInFormData) => {
-    // setServerError(null)
-    // setPending(true)
-    // const { error } = await signIn.email({
-    //   email: data.email,
-    //   password: data.password,
-    // })
-    // setPending(false)
-    // if (error) {
-    //   setServerError(error.message ?? 'Erro ao fazer login. Tente novamente.')
-    //   return
-    // }
-    router.push('/dashboard')
-    // router.refresh()
+    const parsed = signInFormSchema.safeParse(data)
+    if (!parsed.success) {
+      parsed.error.issues.forEach(issue => {
+        form.setError(issue.path[0] as keyof SignInFormData, { message: issue.message })
+      })
+      return
+    }
+    setServerError(null)
+    setPending(true)
+    const error = await login(parsed.data)
+    setPending(false)
+    if (error) setServerError(error)
   }
 
   return (

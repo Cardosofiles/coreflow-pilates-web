@@ -1,1 +1,1 @@
-export type { SignInFormData, SignUpFormData } from './auth.types'
+export type { SignInFormData, SignUpFormData, Usuario, LoginResponse, PapelUsuario } from './auth.types'
