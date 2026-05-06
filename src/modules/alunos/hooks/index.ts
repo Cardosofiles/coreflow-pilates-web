@@ -1,0 +1,5 @@
+export { useGetAlunos } from './use-get-alunos'
+export { useGetAluno } from './use-get-aluno'
+export { useCreateAluno } from './use-create-aluno'
+export { useUpdateAluno } from './use-update-aluno'
+export { useDeleteAluno } from './use-delete-aluno'

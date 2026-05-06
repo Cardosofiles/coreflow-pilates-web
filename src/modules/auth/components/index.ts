@@ -9,3 +9,4 @@ export { SignInPasswordField } from './sign-in/sign-in-password-field'
 export { SignInForm } from './sign-in/sign-in-form'
 
 export { AuthPanel } from './layout/auth-panel'
+export { AuthGuard } from './guards/auth-guard'
