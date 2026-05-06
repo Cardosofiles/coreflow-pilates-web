@@ -1,13 +1,13 @@
 import type { ElementType, SVGProps } from 'react'
 
 import {
-  Bell,
-  Calendar,
+  CalendarCheck2,
+  CalendarDays,
   ClipboardList,
   CreditCard,
   Dumbbell,
   LayoutDashboard,
-  ShieldUser,
+  ListOrdered,
   Users,
   UserStar,
 } from 'lucide-react'
@@ -26,17 +26,30 @@ export type SidebarData = SidebarItem[]
 
 const firstSidebarData: SidebarData = [
   { id: 1, icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
-  { id: 2, icon: Calendar, label: 'Agenda', href: '/agenda' },
-  { id: 3, icon: ClipboardList, label: 'Matrícula', href: '/matricula' },
 ]
 
 const secondSidebarData: SidebarData = [
-  { id: 1, icon: ShieldUser, label: 'Administrativo', href: '/admin/dashboard', roles: ['ADMIN'] },
-  { id: 2, icon: UserStar, label: 'Instrutores', href: '/instrutor/dashboard', roles: ['INSTRUTOR'] },
-  { id: 3, icon: CreditCard, label: 'Planos', href: '/planos', roles: ['ADMIN'] },
-  { id: 4, icon: Users, label: 'Alunos', href: '/aluno/dashboard', roles: ['ALUNO'] },
-  { id: 5, icon: Dumbbell, label: 'Aparelhos', href: '/aparelhos', roles: ['ADMIN'] },
-  { id: 6, icon: Bell, label: 'Alertas', href: '/alertas', roles: ['ADMIN'] },
+  // ADMIN
+  { id: 1, icon: Users, label: 'Alunos', href: '/admin/alunos', roles: ['ADMIN'] },
+  { id: 2, icon: UserStar, label: 'Instrutores', href: '/admin/instrutores', roles: ['ADMIN'] },
+  { id: 3, icon: CreditCard, label: 'Planos', href: '/admin/planos', roles: ['ADMIN'] },
+  { id: 4, icon: CalendarDays, label: 'Sessões', href: '/admin/sessoes', roles: ['ADMIN'] },
+  { id: 5, icon: ClipboardList, label: 'Matrículas', href: '/admin/matriculas', roles: ['ADMIN'] },
+  {
+    id: 6,
+    icon: CalendarCheck2,
+    label: 'Agendamentos',
+    href: '/admin/agendamentos',
+    roles: ['ADMIN'],
+  },
+  { id: 7, icon: Dumbbell, label: 'Aparelhos', href: '/admin/aparelhos', roles: ['ADMIN'] },
+  {
+    id: 8,
+    icon: ListOrdered,
+    label: 'Fila de Espera',
+    href: '/admin/fila-espera',
+    roles: ['ADMIN'],
+  },
 ]
 
 export { firstSidebarData, secondSidebarData }
