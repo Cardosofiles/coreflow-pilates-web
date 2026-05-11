@@ -15,6 +15,7 @@ const ROLE_GUARDED_PREFIXES: Record<string, string> = {
   '/alertas': 'ADMIN',
   '/planos': 'ADMIN',
   '/usuarios': 'ADMIN',
+   '/agenda': 'ADMIN',   // ← adiciona essa linha
 }
 
 const PUBLIC_PATHS = ['/sign-in', '/sign-up']
