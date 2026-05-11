@@ -11,7 +11,12 @@ import type {
 // ── Agendamentos ──────────────────────────────────────────
 export const agendamentosService = {
   getAll: (): Promise<Agendamento[]> =>
-    api.get("/agendamentos").then((r) => r.data),
+    api.get("/agendamentos").then((r) => {
+      if (!Array.isArray(r.data)) {
+        throw new Error("Invalid response format from /agendamentos");
+      }
+      return r.data;
+    }),
 
   create: (payload: AgendamentoCreatePayload): Promise<Agendamento> =>
     api.post("/agendamentos", payload).then((r) => r.data),
