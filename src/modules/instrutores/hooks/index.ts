@@ -1,0 +1,5 @@
+export * from './use-get-instrutores'
+export * from './use-get-instrutor'
+export * from './use-create-instrutor'
+export * from './use-update-instrutor'
+export * from './use-delete-instrutor'
