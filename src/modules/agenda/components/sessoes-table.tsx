@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -15,11 +16,11 @@ import { SessaoForm } from "./sessao-form";
 import type { SessaoStatus } from "../types";
 import type { SessaoFormValues } from "../schemas";
 
-const STATUS_CONFIG: Record<SessaoStatus, { label: string; variant: "default" | "secondary" | "destructive" }> = {
-  ABERTA: { label: "Aberta", variant: "default" },
-  FECHADA: { label: "Fechada", variant: "secondary" },
-  CANCELADA: { label: "Cancelada", variant: "destructive" },
-};
+const STATUS_CONFIG: Record<SessaoStatus, { label: string; variant: 'default' | 'secondary' | 'destructive' }> = {
+  ABERTA: { label: 'Aberta', variant: 'default' },
+  ENCERRADA: { label: 'Encerrada', variant: 'secondary' },
+  CANCELADA: { label: 'Cancelada', variant: 'destructive' },
+}
 
 function formatHora(horaIso: string) { return horaIso.slice(0, 5); }
 
