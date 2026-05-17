@@ -25,7 +25,7 @@ export interface AgendamentoUpdatePayload {
 // ──────────────────────────────────────────────────────────
 // Sessão
 // ──────────────────────────────────────────────────────────
-export type SessaoStatus = "ABERTA" | "FECHADA" | "CANCELADA";
+export type SessaoStatus = 'ABERTA' | 'ENCERRADA' | 'CANCELADA'
 
 export interface Sessao {
   id: number;
