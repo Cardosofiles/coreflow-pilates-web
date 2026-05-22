@@ -9,8 +9,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { getApiErrorMessage } from '@/lib/api-error'
 
-import { useCreateFilaEspera } from '`@/modules/fila-espera/hooks/use-create-fila-espera`'
-import { filaEsperaCreateSchema } from '`@/modules/fila-espera/schemas/fila-espera-schema`'
+import { useCreateFilaEspera } from '@/modules/fila-espera/hooks/use-create-fila-espera'
+import { filaEsperaCreateSchema } from '@/modules/fila-espera/schemas/fila-espera-schema'
 import { z } from 'zod'
 
 type FormValues = z.infer<typeof filaEsperaCreateSchema>
