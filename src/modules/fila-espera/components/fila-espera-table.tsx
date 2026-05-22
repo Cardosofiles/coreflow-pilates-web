@@ -50,9 +50,6 @@ const FilaEsperaTable = (): JSX.Element => {
   const { mutate: deleteFilaEspera, isPending: isDeleting } = useDeleteFilaEspera()
   const { mutate: cancelarFilaEspera, isPending: isCanceling } = useCancelarFilaEspera()
 
-  const getAlunoNome = (aluno_id: number) =>
-    alunos.find(a => a.id === aluno_id)?.nome ?? `ID ${aluno_id}`
-
   const [createOpen, setCreateOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<FilaEsperaResponse | null>(null)
   const [cancelTarget, setCancelTarget] = useState<FilaEsperaResponse | null>(null)
@@ -86,7 +83,10 @@ const FilaEsperaTable = (): JSX.Element => {
   }
 
   const columns = useMemo<ColumnDef<FilaEsperaResponse>[]>(
-    () => [
+    () => {
+      const getAlunoNome = (aluno_id: number) =>
+        alunos.find(a => a.id === aluno_id)?.nome ?? `ID ${aluno_id}`
+      return [
       {
         accessorKey: 'id',
         header: 'ID',
@@ -142,7 +142,8 @@ const FilaEsperaTable = (): JSX.Element => {
           )
         },
       },
-    ],
+    ]
+    },
     [alunos]
   )
 
