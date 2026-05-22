@@ -146,81 +146,85 @@ const PlanoForm = ({ mode, plano, onSuccess }: PlanoFormProps): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="space-y-1.5">
-        <Label htmlFor="nome">Nome do Plano *</Label>
-        <Input id="nome" placeholder="Ex: Plano Mensal" {...form.register('nome')} />
-        {err.nome && <p className="text-destructive text-xs">{err.nome.message}</p>}
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label htmlFor="nome">Nome do Plano *</Label>
+          <Input id="nome" placeholder="Ex: Plano Mensal" {...form.register('nome')} />
+          {err.nome && <p className="text-destructive text-xs">{err.nome.message}</p>}
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="valor_mensal">Preço (R$) *</Label>
+          <Input
+            id="valor_mensal"
+            type="number"
+            step="0.01"
+            placeholder="Ex: 350"
+            {...form.register('valor_mensal')}
+          />
+          {err.valor_mensal && (
+            <p className="text-destructive text-xs">{err.valor_mensal.message}</p>
+          )}
+        </div>
       </div>
 
-      <div className="space-y-1.5">
-        <Label>Duração *</Label>
-        <Controller
-          name="duracao_meses"
-          control={form.control}
-          render={({ field }) => (
-            <Select
-              onValueChange={val => field.onChange(Number(val) as DuracaoMeses)}
-              value={field.value !== undefined ? String(field.value) : ''}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione a duração" />
-              </SelectTrigger>
-              <SelectContent>
-                {DURACAO_OPTIONS.map(opt => (
-                  <SelectItem key={opt.value} value={String(opt.value)}>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label>Duração *</Label>
+          <Controller
+            name="duracao_meses"
+            control={form.control}
+            render={({ field }) => (
+              <Select
+                onValueChange={val => field.onChange(Number(val) as DuracaoMeses)}
+                value={field.value !== undefined ? String(field.value) : ''}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione a duração" />
+                </SelectTrigger>
+                <SelectContent>
+                  {DURACAO_OPTIONS.map(opt => (
+                    <SelectItem key={opt.value} value={String(opt.value)}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          {err.duracao_meses && (
+            <p className="text-destructive text-xs">{err.duracao_meses.message}</p>
+          )}
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Modalidades *</Label>
+          <Controller
+            name="aulas_por_semana"
+            control={form.control}
+            render={({ field }) => (
+              <div className="flex flex-wrap gap-2">
+                {AULAS_OPTIONS.map(opt => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => field.onChange(opt.value)}
+                    className={`rounded-md border px-4 py-2 text-sm transition-colors ${
+                      field.value === opt.value
+                        ? 'bg-primary text-primary-foreground border-primary'
+                        : 'border-border hover:bg-muted'
+                    }`}
+                  >
                     {opt.label}
-                  </SelectItem>
+                  </button>
                 ))}
-              </SelectContent>
-            </Select>
+              </div>
+            )}
+          />
+          {err.aulas_por_semana && (
+            <p className="text-destructive text-xs">{err.aulas_por_semana.message}</p>
           )}
-        />
-        {err.duracao_meses && (
-          <p className="text-destructive text-xs">{err.duracao_meses.message}</p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <Label htmlFor="valor_mensal">Preço (R$) *</Label>
-        <Input
-          id="valor_mensal"
-          type="number"
-          step="0.01"
-          placeholder="Ex: 350"
-          {...form.register('valor_mensal')}
-        />
-        {err.valor_mensal && (
-          <p className="text-destructive text-xs">{err.valor_mensal.message}</p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <Label>Modalidades *</Label>
-        <Controller
-          name="aulas_por_semana"
-          control={form.control}
-          render={({ field }) => (
-            <div className="flex flex-wrap gap-2">
-              {AULAS_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => field.onChange(opt.value)}
-                  className={`rounded-md border px-4 py-2 text-sm transition-colors ${
-                    field.value === opt.value
-                      ? 'bg-primary text-primary-foreground border-primary'
-                      : 'border-border hover:bg-muted'
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
-        />
-        {err.aulas_por_semana && (
-          <p className="text-destructive text-xs">{err.aulas_por_semana.message}</p>
-        )}
+        </div>
       </div>
 
       <div className="space-y-1.5">
