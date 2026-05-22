@@ -17,6 +17,8 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { getApiErrorMessage } from '@/lib/api-error'
 
+import { useGetAlunos } from '@/modules/alunos'
+
 import { useCancelarFilaEspera } from '../hooks/use-cancelar-fila-espera'
 import { useDeleteFilaEspera } from '../hooks/use-delete-fila-espera'
 import { useGetFilasEspera } from '../hooks/use-get-filas-espera'
@@ -44,8 +46,12 @@ const FilaEsperaTableSkeleton = (): JSX.Element => (
 
 const FilaEsperaTable = (): JSX.Element => {
   const { data: filas = [], isLoading } = useGetFilasEspera()
+  const { data: alunos = [] } = useGetAlunos()
   const { mutate: deleteFilaEspera, isPending: isDeleting } = useDeleteFilaEspera()
   const { mutate: cancelarFilaEspera, isPending: isCanceling } = useCancelarFilaEspera()
+
+  const getAlunoNome = (aluno_id: number) =>
+    alunos.find(a => a.id === aluno_id)?.nome ?? `ID ${aluno_id}`
 
   const [createOpen, setCreateOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<FilaEsperaResponse | null>(null)
@@ -87,7 +93,8 @@ const FilaEsperaTable = (): JSX.Element => {
       },
       {
         accessorKey: 'aluno_id',
-        header: 'ID do Aluno',
+        header: 'Aluno',
+        cell: ({ row }) => getAlunoNome(row.original.aluno_id),
       },
       {
         accessorKey: 'sessao_id',
@@ -136,7 +143,7 @@ const FilaEsperaTable = (): JSX.Element => {
         },
       },
     ],
-    []
+    [alunos]
   )
 
   if (isLoading) return <FilaEsperaTableSkeleton />
@@ -158,7 +165,7 @@ const FilaEsperaTable = (): JSX.Element => {
         data={filas}
         columns={columns}
         searchKey="aluno_id"
-        searchPlaceholder="Buscar por ID do aluno..."
+        searchPlaceholder="Buscar por aluno..."
       />
 
       <FormModal
