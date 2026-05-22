@@ -9,8 +9,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { getApiErrorMessage } from '@/lib/api-error'
 
-import { useCreateFilaEspera } from '`@/modules/fila-espera/hooks/use-create-fila-espera`'
-import { filaEsperaCreateSchema } from '`@/modules/fila-espera/schemas/fila-espera-schema`'
+import { useCreateFilaEspera } from '@/modules/fila-espera/hooks/use-create-fila-espera'
+import { filaEsperaCreateSchema } from '@/modules/fila-espera/schemas/fila-espera-schema'
 import { z } from 'zod'
 
 type FormValues = z.infer<typeof filaEsperaCreateSchema>
@@ -52,26 +52,28 @@ const FilaEsperaForm = ({ onSuccess }: Props): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-1.5">
-        <Label htmlFor="aluno_id">ID do Aluno *</Label>
-        <Input
-          id="aluno_id"
-          type="number"
-          {...form.register('aluno_id', { valueAsNumber: true })}
-          disabled={isPending}
-        />
-        {err.aluno_id && <p className="text-destructive text-sm">{err.aluno_id.message}</p>}
-      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label htmlFor="aluno_id">ID do Aluno *</Label>
+          <Input
+            id="aluno_id"
+            type="number"
+            {...form.register('aluno_id', { valueAsNumber: true })}
+            disabled={isPending}
+          />
+          {err.aluno_id && <p className="text-destructive text-sm">{err.aluno_id.message}</p>}
+        </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="sessao_id">ID da Sessão *</Label>
-        <Input
-          id="sessao_id"
-          type="number"
-          {...form.register('sessao_id', { valueAsNumber: true })}
-          disabled={isPending}
-        />
-        {err.sessao_id && <p className="text-destructive text-sm">{err.sessao_id.message}</p>}
+        <div className="space-y-1.5">
+          <Label htmlFor="sessao_id">ID da Sessão *</Label>
+          <Input
+            id="sessao_id"
+            type="number"
+            {...form.register('sessao_id', { valueAsNumber: true })}
+            disabled={isPending}
+          />
+          {err.sessao_id && <p className="text-destructive text-sm">{err.sessao_id.message}</p>}
+        </div>
       </div>
 
       <div className="flex justify-end pt-2">

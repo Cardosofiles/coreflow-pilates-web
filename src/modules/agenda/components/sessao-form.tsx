@@ -50,7 +50,7 @@ export function SessaoForm({ open, onClose, onSubmit, isPending }: SessaoFormPro
 
   return (
     <Dialog open={open} onOpenChange={v => !v && onClose()}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Nova Sessão</DialogTitle>
         </DialogHeader>
