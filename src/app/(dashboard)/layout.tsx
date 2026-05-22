@@ -1,10 +1,10 @@
 import type { JSX } from 'react'
 
-import { SidebarProvider } from '@/components/ui/sidebar'
-import { DashboardView } from '@/components/layout/sidebar/sidebar-view'
 import { NavbarSidebarSearch } from '@/components/layout/sidebar/navbar-sidebar-search'
-import { AuthGuard } from '@/modules/auth'
+import { DashboardView } from '@/components/layout/sidebar/sidebar-view'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { UserProvider } from '@/context/user-context'
+import { AuthGuard } from '@/modules/auth'
 
 interface DashboardProps {
   children: React.ReactNode

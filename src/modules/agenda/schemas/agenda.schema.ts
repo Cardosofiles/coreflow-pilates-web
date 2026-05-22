@@ -1,9 +1,13 @@
 import { z } from 'zod'
 
 export const agendamentoSchema = z.object({
-  nome: z.string().min(1, 'Nome é obrigatório'),
-  descricao: z.string().min(1, 'Descrição é obrigatória'),
-  ativo: z.boolean().default(true),
+  aluno_id: z.number().int().positive('Aluno é obrigatório'),
+  sessao_id: z.number().int().positive('Sessão é obrigatória'),
+  aparelho_id: z.number().int().positive('Aparelho é obrigatório'),
+  instrutor_id: z.number().int().positive('Instrutor é obrigatório'),
+  matricula_id: z.number().int().positive().optional().nullable(),
+  tipo_cobranca: z.enum(['MATRICULA', 'AVULSO']).default('MATRICULA'),
+  observacao: z.string().max(500).optional().nullable(),
 })
 
 export type AgendamentoFormValues = z.infer<typeof agendamentoSchema>

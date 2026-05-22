@@ -15,18 +15,42 @@ import { useCreateAgendamento } from "../hooks/use-create-agendamento";
 import { useUpdateAgendamento } from "../hooks/use-update-agendamento";
 import { useDeleteAgendamento } from "../hooks/use-delete-agendamento";
 import { AgendamentoForm } from "./agendamento-form";
-import type { Agendamento } from "../types";
+import type { AgendamentoResponse } from "../types";
 import type { AgendamentoFormValues } from "../schemas";
+import { useGetAlunos } from "@/modules/alunos";
+import { useGetInstrutores } from "@/modules/instrutores/hooks";
+import { useGetAparelhos } from "@/modules/aparelhos";
+
+const STATUS_LABELS: Record<string, string> = {
+  AGENDADO: 'Agendado',
+  PRESENTE: 'Presente',
+  FALTA: 'Falta',
+  CANCELADO: 'Cancelado',
+}
+
+const STATUS_VARIANTS: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+  AGENDADO: 'default',
+  PRESENTE: 'default',
+  FALTA: 'destructive',
+  CANCELADO: 'secondary',
+}
 
 export function AgendamentosTable() {
   const { data: agendamentos, isLoading, isError } = useGetAgendamentos();
+  const { data: alunos } = useGetAlunos();
+  const { data: instrutores } = useGetInstrutores();
+  const { data: aparelhos } = useGetAparelhos();
   const createMutation = useCreateAgendamento();
   const updateMutation = useUpdateAgendamento();
   const deleteMutation = useDeleteAgendamento();
 
+  function resolveNome<T extends { id: number; nome: string }>(list: T[] | undefined, id: number) {
+    return list?.find(item => item.id === id)?.nome ?? `#${id}`;
+  }
+
   const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState<Agendamento | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<Agendamento | null>(null);
+  const [editing, setEditing] = useState<AgendamentoResponse | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AgendamentoResponse | null>(null);
 
   function handleSubmit(data: AgendamentoFormValues) {
     if (editing) {
@@ -38,7 +62,7 @@ export function AgendamentosTable() {
     }
   }
 
-  function handleOpenEdit(item: Agendamento) { setEditing(item); setFormOpen(true); }
+  function handleOpenEdit(item: AgendamentoResponse) { setEditing(item); setFormOpen(true); }
   function handleOpenCreate() { setEditing(null); setFormOpen(true); }
   function handleCloseForm() { setFormOpen(false); setEditing(null); }
   function handleConfirmDelete() {
@@ -61,8 +85,10 @@ export function AgendamentosTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead>Descrição</TableHead>
+              <TableHead>Aluno</TableHead>
+              <TableHead>Sessão</TableHead>
+              <TableHead>Aparelho</TableHead>
+              <TableHead>Instrutor</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Criado em</TableHead>
               <TableHead className="text-right">Ações</TableHead>
@@ -70,13 +96,19 @@ export function AgendamentosTable() {
           </TableHeader>
           <TableBody>
             {agendamentos?.length === 0 && (
-              <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-8">Nenhum agendamento encontrado.</TableCell></TableRow>
+              <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">Nenhum agendamento encontrado.</TableCell></TableRow>
             )}
             {agendamentos?.map((item) => (
               <TableRow key={item.id}>
-                <TableCell className="font-medium">{item.nome}</TableCell>
-                <TableCell className="text-muted-foreground max-w-xs truncate">{item.descricao}</TableCell>
-                <TableCell><Badge variant={item.ativo ? "default" : "secondary"}>{item.ativo ? "Ativo" : "Inativo"}</Badge></TableCell>
+                <TableCell className="font-medium">{resolveNome(alunos, item.aluno_id)}</TableCell>
+                <TableCell>#{item.sessao_id}</TableCell>
+                <TableCell>{resolveNome(aparelhos, item.aparelho_id)}</TableCell>
+                <TableCell>{resolveNome(instrutores, item.instrutor_id)}</TableCell>
+                <TableCell>
+                  <Badge variant={STATUS_VARIANTS[item.status] ?? 'secondary'}>
+                    {STATUS_LABELS[item.status] ?? item.status}
+                  </Badge>
+                </TableCell>
                 <TableCell className="text-muted-foreground text-sm">{format(new Date(item.created_at), "dd/MM/yyyy HH:mm", { locale: ptBR })}</TableCell>
                 <TableCell className="text-right space-x-1">
                   <Button size="icon" variant="ghost" onClick={() => handleOpenEdit(item)}><Pencil className="h-4 w-4" /></Button>
@@ -92,7 +124,7 @@ export function AgendamentosTable() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
-            <AlertDialogDescription>Tem certeza que deseja excluir <strong>{deleteTarget?.nome}</strong>? Esta ação não pode ser desfeita.</AlertDialogDescription>
+            <AlertDialogDescription>Tem certeza que deseja excluir o agendamento <strong>#{deleteTarget?.id}</strong>? Esta ação não pode ser desfeita.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
