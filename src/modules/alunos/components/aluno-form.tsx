@@ -131,7 +131,7 @@ const AlunoForm = ({ mode, aluno, onSuccess }: Props): JSX.Element => {
         {err.senha && <p className="text-destructive text-sm">{err.senha.message}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="telefone">Telefone</Label>
           <Input id="telefone" {...form.register('telefone')} disabled={isPending} />
