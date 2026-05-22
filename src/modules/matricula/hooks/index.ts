@@ -1,6 +1,7 @@
 export { useGetMatriculas } from './use-get-matriculas'
 export { useGetMatriculasByAluno } from './use-get-matriculas-by-aluno'
 export { useGetMatriculaAtiva } from './use-get-matricula-ativa'
+export { useGetMatriculasVencendo } from './use-get-matriculas-vencendo'
 export { useCreateMatricula } from './use-create-matricula'
 export { useUpdateMatricula } from './use-update-matricula'
 export { useDeleteMatricula } from './use-delete-matricula'

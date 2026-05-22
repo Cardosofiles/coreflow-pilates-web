@@ -1,11 +1,11 @@
 'use client'
 
-import { useMemo, useState, type JSX } from 'react'
 import { type ColumnDef } from '@tanstack/react-table'
 import { MoreHorizontal, Plus, Trash2, XCircle } from 'lucide-react'
+import { useMemo, useState, type JSX } from 'react'
 import { toast } from 'sonner'
 
-import { DataTable, StatusBadge, ConfirmDialog, FormModal } from '@/components/common'
+import { ConfirmDialog, DataTable, FormModal, StatusBadge } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -17,9 +17,9 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { getApiErrorMessage } from '@/lib/api-error'
 
-import { useGetFilasEspera } from '../hooks/use-get-filas-espera'
-import { useDeleteFilaEspera } from '../hooks/use-delete-fila-espera'
 import { useCancelarFilaEspera } from '../hooks/use-cancelar-fila-espera'
+import { useDeleteFilaEspera } from '../hooks/use-delete-fila-espera'
+import { useGetFilasEspera } from '../hooks/use-get-filas-espera'
 import type { FilaEsperaResponse } from '../types/fila-espera.types'
 import { FilaEsperaForm } from './fila-espera-form'
 

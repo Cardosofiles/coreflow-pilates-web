@@ -25,7 +25,7 @@ type SidebarItem = {
 export type SidebarData = SidebarItem[]
 
 const firstSidebarData: SidebarData = [
-  { id: 1, icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
+  { id: 1, icon: LayoutDashboard, label: 'Dashboard', href: '/admin/dashboard', roles: ['ADMIN'] },
 ]
 
 const secondSidebarData: SidebarData = [
@@ -34,7 +34,7 @@ const secondSidebarData: SidebarData = [
   { id: 2, icon: UserStar, label: 'Instrutores', href: '/admin/instrutores', roles: ['ADMIN'] },
   { id: 3, icon: CreditCard, label: 'Planos', href: '/admin/planos', roles: ['ADMIN'] },
   { id: 4, icon: CalendarDays, label: 'Sessões', href: '/admin/sessoes', roles: ['ADMIN'] },
-  { id: 5, icon: ClipboardList, label: 'Matrículas', href: '/admin/matriculas', roles: ['ADMIN'] },
+  { id: 5, icon: ClipboardList, label: 'Matrículas', href: '/admin/matricula', roles: ['ADMIN'] },
   {
     id: 6,
     icon: CalendarCheck2,

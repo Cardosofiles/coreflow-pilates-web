@@ -6,6 +6,7 @@ import type {
   AgendamentoUpdatePayload,
   Sessao,
   SessaoCreatePayload,
+  SessaoUpdatePayload,
 } from "../types";
 
 // ── Agendamentos ──────────────────────────────────────────
@@ -33,6 +34,15 @@ export const sessoesService = {
   getAll: (): Promise<Sessao[]> =>
     api.get("/sessoes").then((r) => r.data),
 
+  getById: (id: number): Promise<Sessao> =>
+    api.get(`/sessoes/${id}`).then((r) => r.data),
+
   create: (payload: SessaoCreatePayload): Promise<Sessao> =>
     api.post("/sessoes", payload).then((r) => r.data),
+
+  update: (id: number, payload: SessaoUpdatePayload): Promise<Sessao> =>
+    api.put(`/sessoes/${id}`, payload).then((r) => r.data),
+
+  remove: (id: number): Promise<void> =>
+    api.delete(`/sessoes/${id}`).then((r) => r.data),
 };
