@@ -16,7 +16,7 @@ const Dashboard = ({ children }: DashboardProps): JSX.Element => {
       <AuthGuard>
         <SidebarProvider>
           <DashboardView />
-          <main className="bg-muted flex h-screen w-screen flex-col">
+          <main className="flex h-screen w-screen flex-col">
             <NavbarSidebarSearch />
             <div className="px-4 py-3">{children}</div>
           </main>

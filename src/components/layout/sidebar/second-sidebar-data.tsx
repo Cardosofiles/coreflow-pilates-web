@@ -38,7 +38,7 @@ const SecondSidebarData = ({ pathName }: SecondSidebarDataProps): JSX.Element =>
                 <SidebarMenuButton
                   asChild
                   className={cn(
-                    'hover:border-border from-sidebar-accent via-sidebar/50 to-sidebar h-10',
+                    'hover:border-border from-sidebar-accent via-sidebar/50 to-sidebar h-10 space-y-2',
                     'border border-transparent from-5% via-30% hover:bg-linear-to-r/oklch',
                     pathName === item.href && 'border-border/20 bg-linear-to-r/oklch'
                   )}
