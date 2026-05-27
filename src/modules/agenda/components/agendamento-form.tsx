@@ -27,6 +27,7 @@ import type { AgendamentoResponse } from '../types'
 import { useGetAlunos } from '@/modules/alunos'
 import { useGetInstrutores } from '@/modules/instrutores/hooks'
 import { useGetAparelhos } from '@/modules/aparelhos'
+import { useGetSessoes } from '../hooks/use-get-sessoes'
 
 interface AgendamentoFormProps {
   open: boolean
@@ -47,6 +48,7 @@ export function AgendamentoForm({
   const { data: alunos } = useGetAlunos()
   const { data: instrutores } = useGetInstrutores()
   const { data: aparelhos } = useGetAparelhos()
+  const { data: sessoes } = useGetSessoes()
 
   const form = useForm<AgendamentoFormValues>({
     defaultValues: {
@@ -60,7 +62,9 @@ export function AgendamentoForm({
     },
   })
 
-  const { formState: { errors } } = form
+  const {
+    formState: { errors },
+  } = form
 
   useEffect(() => {
     if (open) {
@@ -83,7 +87,7 @@ export function AgendamentoForm({
               matricula_id: null,
               tipo_cobranca: 'MATRICULA',
               observacao: null,
-            },
+            }
       )
     }
   }, [open, defaultValues, form])
@@ -124,23 +128,44 @@ export function AgendamentoForm({
                     </SelectTrigger>
                     <SelectContent>
                       {alunos?.map(a => (
-                        <SelectItem key={a.id} value={String(a.id)}>{a.nome}</SelectItem>
+                        <SelectItem key={a.id} value={String(a.id)}>
+                          {a.nome}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
-              {errors.aluno_id && <p className="text-xs text-destructive">{errors.aluno_id.message}</p>}
+              {errors.aluno_id && (
+                <p className="text-xs text-destructive">{errors.aluno_id.message}</p>
+              )}
             </div>
             <div className="space-y-1">
-              <Label htmlFor="sessao_id">ID da Sessão</Label>
-              <Input
-                id="sessao_id"
-                type="number"
-                placeholder="Ex: 1"
-                {...form.register('sessao_id', { valueAsNumber: true })}
+              <Label>Sessão</Label>
+              <Controller
+                name="sessao_id"
+                control={form.control}
+                render={({ field }) => (
+                  <Select
+                    value={field.value ? String(field.value) : ''}
+                    onValueChange={v => field.onChange(Number(v))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {sessoes?.map(s => (
+                        <SelectItem key={s.id} value={String(s.id)}>
+                          {s.data} {s.hora_inicio}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               />
-              {errors.sessao_id && <p className="text-xs text-destructive">{errors.sessao_id.message}</p>}
+              {errors.sessao_id && (
+                <p className="text-xs text-destructive">{errors.sessao_id.message}</p>
+              )}
             </div>
             <div className="space-y-1">
               <Label>Aparelho</Label>
@@ -157,13 +182,17 @@ export function AgendamentoForm({
                     </SelectTrigger>
                     <SelectContent>
                       {aparelhos?.map(a => (
-                        <SelectItem key={a.id} value={String(a.id)}>{a.nome}</SelectItem>
+                        <SelectItem key={a.id} value={String(a.id)}>
+                          {a.nome}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
-              {errors.aparelho_id && <p className="text-xs text-destructive">{errors.aparelho_id.message}</p>}
+              {errors.aparelho_id && (
+                <p className="text-xs text-destructive">{errors.aparelho_id.message}</p>
+              )}
             </div>
             <div className="space-y-1">
               <Label>Instrutor</Label>
@@ -180,13 +209,17 @@ export function AgendamentoForm({
                     </SelectTrigger>
                     <SelectContent>
                       {instrutores?.map(i => (
-                        <SelectItem key={i.id} value={String(i.id)}>{i.nome}</SelectItem>
+                        <SelectItem key={i.id} value={String(i.id)}>
+                          {i.nome}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
-              {errors.instrutor_id && <p className="text-xs text-destructive">{errors.instrutor_id.message}</p>}
+              {errors.instrutor_id && (
+                <p className="text-xs text-destructive">{errors.instrutor_id.message}</p>
+              )}
             </div>
           </div>
           <div className="space-y-1">

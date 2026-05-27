@@ -63,7 +63,7 @@ const UserSidebarButton = (): JSX.Element => {
           </DrawerHeader>
 
           <DrawerFooter>
-            <Button>
+            <Button className="bg-violet-500">
               <CreditCardIcon className="ml-2 size-4" />
               Cobrança
             </Button>
