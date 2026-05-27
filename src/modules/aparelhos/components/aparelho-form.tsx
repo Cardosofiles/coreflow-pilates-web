@@ -71,17 +71,31 @@ export function AparelhoForm({
           <DialogTitle>{isEditing ? 'Editar Aparelho' : 'Novo Aparelho'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-2">
-          <div className="space-y-1">
-            <Label htmlFor="nome">Nome</Label>
-            <Input id="nome" placeholder="Nome do aparelho" {...form.register('nome')} />
+          <div className="space-y-1.5">
+            <Label htmlFor="nome">Nome *</Label>
+            <Input id="nome" placeholder="Ex: Reformer, Cadillac…" {...form.register('nome')} />
             {errors.nome && <p className="text-xs text-destructive">{errors.nome.message}</p>}
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <Label htmlFor="descricao">Descrição</Label>
-            <Input id="descricao" placeholder="Descrição (opcional)" {...form.register('descricao')} />
-            {errors.descricao && <p className="text-xs text-destructive">{errors.descricao.message}</p>}
+            <Input
+              id="descricao"
+              placeholder="Descrição opcional do aparelho"
+              {...form.register('descricao')}
+            />
+            {errors.descricao && (
+              <p className="text-xs text-destructive">{errors.descricao.message}</p>
+            )}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between rounded-lg border p-3">
+            <div>
+              <Label htmlFor="ativo" className="cursor-pointer font-medium">
+                {ativo ? 'Ativo' : 'Inativo'}
+              </Label>
+              <p className="text-muted-foreground text-xs">
+                Aparelhos inativos não aparecem nos agendamentos
+              </p>
+            </div>
             <Controller
               name="ativo"
               control={form.control}
@@ -89,10 +103,11 @@ export function AparelhoForm({
                 <Switch id="ativo" checked={field.value ?? true} onCheckedChange={field.onChange} />
               )}
             />
-            <Label htmlFor="ativo">{ativo ? 'Ativo' : 'Inativo'}</Label>
           </div>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
+          <DialogFooter className="pt-2">
+            <Button type="button" variant="outline" onClick={onClose}>
+              Cancelar
+            </Button>
             <Button type="submit" disabled={isPending}>
               {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {isEditing ? 'Salvar alterações' : 'Criar aparelho'}

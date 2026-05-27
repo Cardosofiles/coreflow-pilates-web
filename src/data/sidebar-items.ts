@@ -32,24 +32,27 @@ const secondSidebarData: SidebarData = [
   // ADMIN
   { id: 1, icon: Users, label: 'Alunos', href: '/admin/alunos', roles: ['ADMIN'] },
   { id: 2, icon: UserStar, label: 'Instrutores', href: '/admin/instrutores', roles: ['ADMIN'] },
-  { id: 3, icon: CreditCard, label: 'Planos', href: '/admin/planos', roles: ['ADMIN'] },
+
+  { id: 3, icon: ClipboardList, label: 'Matrículas', href: '/admin/matricula', roles: ['ADMIN'] },
   { id: 4, icon: CalendarDays, label: 'Sessões', href: '/admin/sessoes', roles: ['ADMIN'] },
-  { id: 5, icon: ClipboardList, label: 'Matrículas', href: '/admin/matricula', roles: ['ADMIN'] },
   {
-    id: 6,
+    id: 5,
     icon: CalendarCheck2,
     label: 'Agendamentos',
     href: '/admin/agendamentos',
     roles: ['ADMIN'],
   },
-  { id: 7, icon: Dumbbell, label: 'Aparelhos', href: '/admin/aparelhos', roles: ['ADMIN'] },
+
   {
-    id: 8,
+    id: 6,
     icon: ListOrdered,
     label: 'Fila de Espera',
     href: '/admin/fila-espera',
     roles: ['ADMIN'],
   },
+
+  { id: 7, icon: Dumbbell, label: 'Aparelhos', href: '/admin/aparelhos', roles: ['ADMIN'] },
+  { id: 8, icon: CreditCard, label: 'Planos', href: '/admin/planos', roles: ['ADMIN'] },
 ]
 
 export { firstSidebarData, secondSidebarData }

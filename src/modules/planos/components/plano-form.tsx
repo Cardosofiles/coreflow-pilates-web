@@ -154,14 +154,21 @@ const PlanoForm = ({ mode, plano, onSuccess }: PlanoFormProps): JSX.Element => {
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="valor_mensal">Preço (R$) *</Label>
-          <Input
-            id="valor_mensal"
-            type="number"
-            step="0.01"
-            placeholder="Ex: 350"
-            {...form.register('valor_mensal')}
-          />
+          <Label htmlFor="valor_mensal">Valor Mensal (R$) *</Label>
+          <div className="relative">
+            <span className="text-muted-foreground absolute inset-y-0 left-3 flex items-center text-sm select-none">
+              R$
+            </span>
+            <Input
+              id="valor_mensal"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="0,00"
+              className="pl-9"
+              {...form.register('valor_mensal')}
+            />
+          </div>
           {err.valor_mensal && (
             <p className="text-destructive text-xs">{err.valor_mensal.message}</p>
           )}
@@ -233,7 +240,7 @@ const PlanoForm = ({ mode, plano, onSuccess }: PlanoFormProps): JSX.Element => {
           id="descricao"
           rows={4}
           placeholder={`Um benefício por linha.\nEx:\nAcesso ilimitado ao estúdio\nAvaliação postural`}
-          className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-1 focus-visible:outline-none"
+          className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring w-full resize-none rounded-md border px-3 py-2 text-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           {...form.register('descricao')}
         />
         <p className="text-muted-foreground text-xs">Insira um benefício por linha.</p>

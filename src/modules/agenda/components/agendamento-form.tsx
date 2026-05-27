@@ -2,7 +2,7 @@
 
 import { useEffect, type JSX } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { Loader2 } from 'lucide-react'
+import { Loader2, User, CalendarDays, Dumbbell, UserCheck, CreditCard, MessageSquare } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog'
 import {
@@ -27,6 +28,7 @@ import type { AgendamentoResponse } from '../types'
 import { useGetAlunos } from '@/modules/alunos'
 import { useGetInstrutores } from '@/modules/instrutores/hooks'
 import { useGetAparelhos } from '@/modules/aparelhos'
+import { useGetSessoes } from '../hooks/use-get-sessoes'
 
 interface AgendamentoFormProps {
   open: boolean
@@ -47,6 +49,7 @@ export function AgendamentoForm({
   const { data: alunos } = useGetAlunos()
   const { data: instrutores } = useGetInstrutores()
   const { data: aparelhos } = useGetAparelhos()
+  const { data: sessoes } = useGetSessoes()
 
   const form = useForm<AgendamentoFormValues>({
     defaultValues: {
@@ -60,7 +63,9 @@ export function AgendamentoForm({
     },
   })
 
-  const { formState: { errors } } = form
+  const {
+    formState: { errors },
+  } = form
 
   useEffect(() => {
     if (open) {
@@ -103,47 +108,88 @@ export function AgendamentoForm({
 
   return (
     <Dialog open={open} onOpenChange={v => !v && onClose()}>
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="w-full sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'Editar Agendamento' : 'Novo Agendamento'}</DialogTitle>
+          <DialogDescription>
+            {isEditing
+              ? 'Atualize os dados do agendamento abaixo.'
+              : 'Preencha os dados para registrar um novo agendamento.'}
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 py-2">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="space-y-1">
-              <Label>Aluno</Label>
-              <Controller
-                name="aluno_id"
-                control={form.control}
-                render={({ field }) => (
-                  <Select
-                    value={field.value ? String(field.value) : ''}
-                    onValueChange={v => field.onChange(Number(v))}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {alunos?.map(a => (
-                        <SelectItem key={a.id} value={String(a.id)}>{a.nome}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-              {errors.aluno_id && <p className="text-xs text-destructive">{errors.aluno_id.message}</p>}
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="sessao_id">ID da Sessão</Label>
-              <Input
-                id="sessao_id"
-                type="number"
-                placeholder="Ex: 1"
-                {...form.register('sessao_id', { valueAsNumber: true })}
-              />
-              {errors.sessao_id && <p className="text-xs text-destructive">{errors.sessao_id.message}</p>}
-            </div>
-            <div className="space-y-1">
-              <Label>Aparelho</Label>
+
+        <form onSubmit={handleSubmit} className="space-y-5 py-1">
+          {/* Aluno */}
+          <div className="space-y-1.5">
+            <Label className="flex items-center gap-1.5">
+              <User className="size-3.5 text-muted-foreground" />
+              Aluno *
+            </Label>
+            <Controller
+              name="aluno_id"
+              control={form.control}
+              render={({ field }) => (
+                <Select
+                  value={field.value ? String(field.value) : ''}
+                  onValueChange={v => field.onChange(Number(v))}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecione o aluno" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {alunos?.map(a => (
+                      <SelectItem key={a.id} value={String(a.id)}>
+                        {a.nome}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.aluno_id && (
+              <p className="text-xs text-destructive">{errors.aluno_id.message}</p>
+            )}
+          </div>
+
+          {/* Sessão */}
+          <div className="space-y-1.5">
+            <Label className="flex items-center gap-1.5">
+              <CalendarDays className="size-3.5 text-muted-foreground" />
+              Sessão *
+            </Label>
+            <Controller
+              name="sessao_id"
+              control={form.control}
+              render={({ field }) => (
+                <Select
+                  value={field.value ? String(field.value) : ''}
+                  onValueChange={v => field.onChange(Number(v))}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecione a sessão" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sessoes?.map(s => (
+                      <SelectItem key={s.id} value={String(s.id)}>
+                        {s.data} — {s.hora_inicio}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.sessao_id && (
+              <p className="text-xs text-destructive">{errors.sessao_id.message}</p>
+            )}
+          </div>
+
+          {/* Aparelho + Instrutor */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label className="flex items-center gap-1.5">
+                <Dumbbell className="size-3.5 text-muted-foreground" />
+                Aparelho *
+              </Label>
               <Controller
                 name="aparelho_id"
                 control={form.control}
@@ -152,21 +198,29 @@ export function AgendamentoForm({
                     value={field.value ? String(field.value) : ''}
                     onValueChange={v => field.onChange(Number(v))}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
                       {aparelhos?.map(a => (
-                        <SelectItem key={a.id} value={String(a.id)}>{a.nome}</SelectItem>
+                        <SelectItem key={a.id} value={String(a.id)}>
+                          {a.nome}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
-              {errors.aparelho_id && <p className="text-xs text-destructive">{errors.aparelho_id.message}</p>}
+              {errors.aparelho_id && (
+                <p className="text-xs text-destructive">{errors.aparelho_id.message}</p>
+              )}
             </div>
-            <div className="space-y-1">
-              <Label>Instrutor</Label>
+
+            <div className="space-y-1.5">
+              <Label className="flex items-center gap-1.5">
+                <UserCheck className="size-3.5 text-muted-foreground" />
+                Instrutor *
+              </Label>
               <Controller
                 name="instrutor_id"
                 control={form.control}
@@ -175,44 +229,67 @@ export function AgendamentoForm({
                     value={field.value ? String(field.value) : ''}
                     onValueChange={v => field.onChange(Number(v))}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
                       {instrutores?.map(i => (
-                        <SelectItem key={i.id} value={String(i.id)}>{i.nome}</SelectItem>
+                        <SelectItem key={i.id} value={String(i.id)}>
+                          {i.nome}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
-              {errors.instrutor_id && <p className="text-xs text-destructive">{errors.instrutor_id.message}</p>}
+              {errors.instrutor_id && (
+                <p className="text-xs text-destructive">{errors.instrutor_id.message}</p>
+              )}
             </div>
           </div>
-          <div className="space-y-1">
-            <Label htmlFor="tipo_cobranca">Tipo de Cobrança</Label>
-            <Controller
-              name="tipo_cobranca"
-              control={form.control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger id="tipo_cobranca">
-                    <SelectValue placeholder="Selecione" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="MATRICULA">Matrícula</SelectItem>
-                    <SelectItem value="AVULSO">Avulso</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
+
+          {/* Separador visual */}
+          <div className="border-t" />
+
+          {/* Tipo de Cobrança + Observação */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="tipo_cobranca" className="flex items-center gap-1.5">
+                <CreditCard className="size-3.5 text-muted-foreground" />
+                Cobrança
+              </Label>
+              <Controller
+                name="tipo_cobranca"
+                control={form.control}
+                render={({ field }) => (
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger id="tipo_cobranca" className="w-full">
+                      <SelectValue placeholder="Selecione" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="MATRICULA">Matrícula</SelectItem>
+                      <SelectItem value="AVULSO">Avulso</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="observacao" className="flex items-center gap-1.5">
+                <MessageSquare className="size-3.5 text-muted-foreground" />
+                Observação
+              </Label>
+              <Input
+                id="observacao"
+                placeholder="Opcional"
+                {...form.register('observacao')}
+              />
+            </div>
           </div>
-          <div className="space-y-1">
-            <Label htmlFor="observacao">Observação</Label>
-            <Input id="observacao" placeholder="Opcional" {...form.register('observacao')} />
-          </div>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
+
+          <DialogFooter className="pt-1">
+            <Button type="button" variant="outline" onClick={onClose} disabled={isPending}>
               Cancelar
             </Button>
             <Button type="submit" disabled={isPending}>
