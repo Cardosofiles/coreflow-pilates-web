@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { getApiErrorMessage } from '@/lib/api-error'
+import { formatPhoneBR } from '@/lib/masks'
 
 import { useCreateAluno } from '../hooks/use-create-aluno'
 import { useUpdateAluno } from '../hooks/use-update-aluno'
@@ -109,13 +110,26 @@ const AlunoForm = ({ mode, aluno, onSuccess }: Props): JSX.Element => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-1.5">
         <Label htmlFor="nome">Nome *</Label>
-        <Input id="nome" {...form.register('nome')} disabled={isPending} />
+        <Input
+          id="nome"
+          placeholder="Nome completo do aluno"
+          autoComplete="name"
+          {...form.register('nome')}
+          disabled={isPending}
+        />
         {err.nome && <p className="text-destructive text-sm">{err.nome.message}</p>}
       </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="email">Email *</Label>
-        <Input id="email" type="email" {...form.register('email')} disabled={isPending} />
+        <Input
+          id="email"
+          type="email"
+          placeholder="exemplo@email.com"
+          autoComplete="email"
+          {...form.register('email')}
+          disabled={isPending}
+        />
         {err.email && <p className="text-destructive text-sm">{err.email.message}</p>}
       </div>
 
@@ -125,6 +139,7 @@ const AlunoForm = ({ mode, aluno, onSuccess }: Props): JSX.Element => {
           id="senha"
           type="password"
           placeholder={isEdit ? 'Deixe em branco para não alterar' : 'Mínimo 6 caracteres'}
+          autoComplete={isEdit ? 'new-password' : 'new-password'}
           {...form.register('senha')}
           disabled={isPending}
         />
@@ -134,17 +149,35 @@ const AlunoForm = ({ mode, aluno, onSuccess }: Props): JSX.Element => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="telefone">Telefone</Label>
-          <Input id="telefone" {...form.register('telefone')} disabled={isPending} />
+          <Controller
+            name="telefone"
+            control={form.control}
+            render={({ field }) => (
+              <Input
+                id="telefone"
+                type="tel"
+                placeholder="(00) 00000-0000"
+                autoComplete="tel"
+                value={field.value}
+                onChange={e => field.onChange(formatPhoneBR(e.target.value))}
+                disabled={isPending}
+              />
+            )}
+          />
+          {err.telefone && <p className="text-destructive text-sm">{err.telefone.message}</p>}
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="data_nascimento">Nascimento</Label>
+          <Label htmlFor="data_nascimento">Data de Nascimento</Label>
           <Input
             id="data_nascimento"
             type="date"
             {...form.register('data_nascimento')}
             disabled={isPending}
           />
+          {err.data_nascimento && (
+            <p className="text-destructive text-sm">{err.data_nascimento.message}</p>
+          )}
         </div>
       </div>
 
@@ -172,7 +205,7 @@ const AlunoForm = ({ mode, aluno, onSuccess }: Props): JSX.Element => {
       </div>
 
       <div className="flex justify-end pt-2">
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
           {isPending ? 'Salvando...' : isEdit ? 'Salvar alterações' : 'Cadastrar aluno'}
         </Button>
       </div>

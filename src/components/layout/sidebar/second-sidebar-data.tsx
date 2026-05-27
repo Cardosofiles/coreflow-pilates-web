@@ -24,7 +24,7 @@ const SecondSidebarData = ({ pathName }: SecondSidebarDataProps): JSX.Element =>
   const papel = useUserPapel()
 
   const visibleItems = secondSidebarData.filter(
-    item => !item.roles || item.roles.includes(papel as never),
+    item => !item.roles || item.roles.includes(papel as never)
   )
 
   return (

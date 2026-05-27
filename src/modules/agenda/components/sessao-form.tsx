@@ -55,40 +55,41 @@ export function SessaoForm({ open, onClose, onSubmit, isPending }: SessaoFormPro
           <DialogTitle>Nova Sessão</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-2">
-          <div className="space-y-1">
-            <Label htmlFor="data">Data</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="data">Data *</Label>
             <Input id="data" type="date" {...form.register('data')} />
             {errors.data && <p className="text-xs text-destructive">{errors.data.message}</p>}
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <Label htmlFor="hora_inicio">Início</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="hora_inicio">Horário de Início *</Label>
               <Input id="hora_inicio" type="time" {...form.register('hora_inicio')} />
               {errors.hora_inicio && (
                 <p className="text-xs text-destructive">{errors.hora_inicio.message}</p>
               )}
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="hora_fim">Fim</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="hora_fim">Horário de Fim *</Label>
               <Input id="hora_fim" type="time" {...form.register('hora_fim')} />
               {errors.hora_fim && (
                 <p className="text-xs text-destructive">{errors.hora_fim.message}</p>
               )}
             </div>
           </div>
-          <div className="space-y-1">
-            <Label htmlFor="capacidade_maxima">Capacidade máxima</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="capacidade_maxima">Capacidade máxima *</Label>
             <Input
               id="capacidade_maxima"
               type="number"
               min={1}
+              placeholder="Ex: 6"
               {...form.register('capacidade_maxima', { valueAsNumber: true })}
             />
             {errors.capacidade_maxima && (
               <p className="text-xs text-destructive">{errors.capacidade_maxima.message}</p>
             )}
           </div>
-          <DialogFooter>
+          <DialogFooter className="pt-2">
             <Button type="button" variant="outline" onClick={onClose}>
               Cancelar
             </Button>
