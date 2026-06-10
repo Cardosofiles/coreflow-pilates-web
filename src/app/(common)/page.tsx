@@ -5,8 +5,8 @@ import type { JSX } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import { ModeToggle } from '@/components/layout/themes/mode-toggle'
+import { Button } from '@/components/ui/button'
 
 const equipment = [
   { name: 'Reformer', abbr: 'RF', angle: -10 },
@@ -83,13 +83,13 @@ export default function LandingPage(): JSX.Element {
           <div className="[&_button]:text-muted-foreground [&_button]:hover:bg-accent [&_button]:hover:text-foreground [&_button]:h-9 [&_button]:w-9 [&_button]:bg-transparent [&_button]:shadow-none">
             <ModeToggle />
           </div>
-          <Link href="/sign-in">
+          <Link href="/presentation">
             <Button
               variant="ghost"
               size="sm"
               className="text-muted-foreground hover:text-foreground h-9 cursor-pointer px-5 text-xs font-medium"
             >
-              Entrar
+              Apresentação
             </Button>
           </Link>
           <Link href="/sign-up">

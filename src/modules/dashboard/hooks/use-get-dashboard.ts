@@ -7,5 +7,7 @@ export function useGetDashboard() {
   return useQuery({
     queryKey: ['dashboard'],
     queryFn: () => api.get<DashboardData>('/admin/dashboard').then(r => r.data),
+    refetchInterval: 15000,
+    refetchIntervalInBackground: false,
   })
 }
