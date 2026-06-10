@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sessoesService } from "../actions/agenda-actions";
-import { SESSOES_QUERY_KEY } from "./use-get-sessoes";
+import { sessaoKeys } from "./agenda.keys";
 import type { SessaoCreatePayload } from "../types";
 
 export function useCreateSessao() {
@@ -12,7 +12,7 @@ export function useCreateSessao() {
     mutationFn: (payload: SessaoCreatePayload) =>
       sessoesService.create(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: SESSOES_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: sessaoKeys.all });
     },
   });
 }

@@ -25,14 +25,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { useIsMobile } from '@/hooks/use-mobile'
 
-import { useAuth } from '@/modules/auth'
 import { useUser } from '@/context/user-context'
 import { cn } from '@/lib/utils'
+import { useLogout } from '@/modules/auth'
 import { GeneratedSidebarAvatar } from './generated-sidebar-avatar'
 
 const UserSidebarButton = (): JSX.Element => {
   const isMobile = useIsMobile()
-  const { logout } = useAuth()
+  const logout = useLogout()
   const { user: usuario } = useUser()
 
   const handleSignOut = () => {

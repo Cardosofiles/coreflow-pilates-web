@@ -4,6 +4,7 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import axios from 'axios'
 
 import type { GithubUser, GithubUserMap } from '../types/presentation.types'
+import { githubUserKeys } from './github-user.keys'
 
 const fetchGithubUser = async (login: string): Promise<GithubUser> => {
   const { data } = await axios.get<GithubUser>(`https://api.github.com/users/${login}`)
@@ -17,7 +18,7 @@ const fetchGithubUser = async (login: string): Promise<GithubUser> => {
  */
 export const useGithubUsers = (logins: string[]): UseQueryResult<GithubUserMap> =>
   useQuery({
-    queryKey: ['github-users', logins],
+    queryKey: githubUserKeys.byLogins(logins),
     queryFn: async (): Promise<GithubUserMap> => {
       const settled = await Promise.allSettled(logins.map(fetchGithubUser))
 

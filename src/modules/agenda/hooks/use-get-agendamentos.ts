@@ -2,12 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { agendamentosService } from "../actions/agenda-actions";
-
-export const AGENDAMENTOS_QUERY_KEY = ["agendamentos"] as const;
+import { agendamentoKeys } from "./agenda.keys";
 
 export function useGetAgendamentos() {
   return useQuery({
-    queryKey: AGENDAMENTOS_QUERY_KEY,
+    queryKey: agendamentoKeys.all,
     queryFn: agendamentosService.getAll,
   });
 }

@@ -1,3 +1,4 @@
+export * from './matricula.keys'
 export { useGetMatriculas } from './use-get-matriculas'
 export { useGetMatriculasByAluno } from './use-get-matriculas-by-aluno'
 export { useGetMatriculaAtiva } from './use-get-matricula-ativa'

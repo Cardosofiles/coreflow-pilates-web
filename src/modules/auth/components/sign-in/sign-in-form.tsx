@@ -1,26 +1,23 @@
 'use client'
 
-import Link from 'next/link'
-import { useState, type JSX } from 'react'
+import { type JSX } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
-import { SignInEmailField } from './sign-in-email-field'
-import { SignInPasswordField } from './sign-in-password-field'
+import { getLoginErrorMessage, useLogin } from '@/modules/auth/hooks'
 import { signInFormSchema } from '@/modules/auth/schemas'
 import type { SignInFormData } from '@/modules/auth/types'
-import { useAuth } from '@/modules/auth/hooks'
+import { SignInEmailField } from './sign-in-email-field'
+import { SignInPasswordField } from './sign-in-password-field'
 
 const SignInForm = (): JSX.Element => {
-  const { login } = useAuth()
-  const [serverError, setServerError] = useState<string | null>(null)
-  const [pending, setPending] = useState(false)
+  const loginMutation = useLogin()
 
   const form = useForm<SignInFormData>({
     defaultValues: { email: '', password: '' },
   })
 
-  const handleSignIn = async (data: SignInFormData) => {
+  const handleSignIn = (data: SignInFormData) => {
     const parsed = signInFormSchema.safeParse(data)
     if (!parsed.success) {
       parsed.error.issues.forEach(issue => {
@@ -28,16 +25,14 @@ const SignInForm = (): JSX.Element => {
       })
       return
     }
-    setServerError(null)
-    setPending(true)
-    const error = await login(parsed.data)
-    setPending(false)
-    if (error) setServerError(error)
+    loginMutation.mutate(parsed.data)
   }
 
+  const pending = loginMutation.isPending
+  const serverError = loginMutation.isError ? getLoginErrorMessage(loginMutation.error) : null
+
   return (
-    <div className="flex min-h-svh items-center justify-center">
-      <div className="w-full max-w-sm space-y-6 p-6">
+    <div className="mx-auto w-full max-w-sm space-y-6 p-6">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Entrar</h1>
           <p className="text-muted-foreground text-sm">
@@ -60,7 +55,7 @@ const SignInForm = (): JSX.Element => {
           </Button>
         </form>
 
-        <p className="text-muted-foreground text-center text-sm">
+        {/* <p className="text-muted-foreground text-center text-sm">
           Não tem uma conta?{' '}
           <Link
             href="/sign-up"
@@ -68,8 +63,7 @@ const SignInForm = (): JSX.Element => {
           >
             Criar conta
           </Link>
-        </p>
-      </div>
+        </p> */}
     </div>
   )
 }

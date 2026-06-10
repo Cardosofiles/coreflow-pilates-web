@@ -1,7 +1,24 @@
 'use client'
 
 import { QueryClient, QueryClientProvider, type QueryClientConfig } from '@tanstack/react-query'
+import { isAxiosError } from 'axios'
 import { ReactNode, useState } from 'react'
+
+const MAX_QUERY_RETRIES = 3
+
+/**
+ * Estratégia de retry para *queries*: mantém o orçamento de 3 tentativas para
+ * falhas transitórias (rede / 5xx), mas aborta imediatamente em erros de
+ * cliente (4xx). Um 401/403/404/422 não muda ao repetir a requisição — retentar
+ * só atrasa o feedback de erro ao usuário e gera carga inútil no backend.
+ */
+function retryQuery(failureCount: number, error: unknown): boolean {
+  if (isAxiosError(error)) {
+    const status = error.response?.status
+    if (status !== undefined && status >= 400 && status < 500) return false
+  }
+  return failureCount < MAX_QUERY_RETRIES
+}
 
 const queryclient: QueryClientConfig = {
   defaultOptions: {
@@ -11,10 +28,10 @@ const queryclient: QueryClientConfig = {
       refetchOnWindowFocus: true,
       refetchOnReconnect: true,
       refetchOnMount: 'always',
-      retry: 3,
+      retry: retryQuery,
     },
     mutations: {
-      retry: 3,
+      retry: 0,
     },
   },
 }

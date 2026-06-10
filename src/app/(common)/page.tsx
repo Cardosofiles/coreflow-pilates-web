@@ -132,7 +132,7 @@ export default function LandingPage(): JSX.Element {
 
           {/* CTA buttons */}
           <div className="flex items-center gap-3">
-            <Link href="/sign-up">
+            <Link href="/sign-in">
               <Button size="lg" className="h-11 cursor-pointer px-7 text-sm font-semibold">
                 Acessar o sistema
               </Button>

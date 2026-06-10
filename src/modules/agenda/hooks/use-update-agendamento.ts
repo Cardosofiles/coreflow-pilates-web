@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { agendamentosService } from "../actions/agenda-actions";
-import { AGENDAMENTOS_QUERY_KEY } from "./use-get-agendamentos";
+import { agendamentoKeys } from "./agenda.keys";
 import type { AgendamentoUpdatePayload } from "../types";
 
 export function useUpdateAgendamento() {
@@ -12,7 +12,7 @@ export function useUpdateAgendamento() {
     mutationFn: ({ id, payload }: { id: number; payload: AgendamentoUpdatePayload }) =>
       agendamentosService.update(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: AGENDAMENTOS_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: agendamentoKeys.all });
     },
   });
 }
