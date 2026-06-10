@@ -1,3 +1,4 @@
+export * from './aluno.keys'
 export { useGetAlunos } from './use-get-alunos'
 export { useGetAluno } from './use-get-aluno'
 export { useGetAlunoMe } from './use-get-aluno-me'

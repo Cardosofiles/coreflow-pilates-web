@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { agendamentosService } from "../actions/agenda-actions";
-import { AGENDAMENTOS_QUERY_KEY } from "./use-get-agendamentos";
+import { agendamentoKeys } from "./agenda.keys";
 
 export function useDeleteAgendamento() {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ export function useDeleteAgendamento() {
   return useMutation({
     mutationFn: (id: number) => agendamentosService.remove(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: AGENDAMENTOS_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: agendamentoKeys.all });
     },
   });
 }

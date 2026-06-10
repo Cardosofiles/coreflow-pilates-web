@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '@/lib/api'
 import type { FilaEsperaResponse } from '../types/fila-espera.types'
+import { filaEsperaKeys } from './fila-espera.keys'
 
 interface FilaEsperaConverterPayload {
   aparelho_id?: number | null
@@ -13,6 +14,6 @@ export function useConverterFilaEspera() {
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data?: FilaEsperaConverterPayload }) =>
       api.post<FilaEsperaResponse>(`/filas-espera/${id}/converter`, data ?? {}).then(r => r.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['filas-espera'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: filaEsperaKeys.all }),
   })
 }

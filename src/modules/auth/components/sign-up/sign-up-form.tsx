@@ -51,42 +51,40 @@ const SignUpForm = (): JSX.Element => {
   }
 
   return (
-    <div className="flex min-h-svh items-center justify-center">
-      <div className="w-full max-w-sm space-y-6 p-6">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Criar conta</h1>
-          <p className="text-muted-foreground text-sm">
-            Preencha os dados abaixo para criar sua conta
-          </p>
-        </div>
-
-        <form onSubmit={form.handleSubmit(handleSignUp)} className="space-y-4" noValidate>
-          <SignUpNameField control={form.control} disabled={pending} />
-          <SignUpEmailField control={form.control} disabled={pending} />
-          <SignUpPasswordField control={form.control} disabled={pending} />
-          <SignUpConfirmPasswordField control={form.control} disabled={pending} />
-
-          {serverError && (
-            <p role="alert" className="text-destructive text-sm">
-              {serverError}
-            </p>
-          )}
-
-          <Button type="submit" className="w-full" disabled={pending}>
-            {pending ? 'Criando conta...' : 'Criar conta'}
-          </Button>
-        </form>
-
-        <p className="text-muted-foreground text-center text-sm">
-          Já tem uma conta?{' '}
-          <Link
-            href="/sign-in"
-            className="hover:text-primary font-medium underline underline-offset-4"
-          >
-            Entrar
-          </Link>
+    <div className="mx-auto w-full max-w-sm space-y-6 p-6">
+      <div className="space-y-1">
+        <h1 className="text-2xl font-semibold tracking-tight">Criar conta</h1>
+        <p className="text-muted-foreground text-sm">
+          Preencha os dados abaixo para criar sua conta
         </p>
       </div>
+
+      <form onSubmit={form.handleSubmit(handleSignUp)} className="space-y-4" noValidate>
+        <SignUpNameField control={form.control} disabled={pending} />
+        <SignUpEmailField control={form.control} disabled={pending} />
+        <SignUpPasswordField control={form.control} disabled={pending} />
+        <SignUpConfirmPasswordField control={form.control} disabled={pending} />
+
+        {serverError && (
+          <p role="alert" className="text-destructive text-sm">
+            {serverError}
+          </p>
+        )}
+
+        <Button type="submit" className="w-full" disabled={pending}>
+          {pending ? 'Criando conta...' : 'Criar conta'}
+        </Button>
+      </form>
+
+      <p className="text-muted-foreground text-center text-sm">
+        Já tem uma conta?{' '}
+        <Link
+          href="/sign-in"
+          className="hover:text-primary font-medium underline underline-offset-4"
+        >
+          Entrar
+        </Link>
+      </p>
     </div>
   )
 }

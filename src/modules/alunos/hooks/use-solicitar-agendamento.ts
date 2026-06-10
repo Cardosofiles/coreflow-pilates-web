@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '@/lib/api'
 import type { AgendamentoResponse } from '@/modules/agenda/types/agenda.types'
+import { alunoKeys } from './aluno.keys'
 
 interface AgendamentoAlunoCreate {
   sessao_id: number
@@ -17,6 +18,6 @@ export function useSolicitarAgendamento() {
   return useMutation({
     mutationFn: (data: AgendamentoAlunoCreate) =>
       api.post<AgendamentoResponse>('/alunos/me/agendamentos', data).then(r => r.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['alunos', 'me', 'agendamentos'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: alunoKeys.meAgendamentos }),
   })
 }

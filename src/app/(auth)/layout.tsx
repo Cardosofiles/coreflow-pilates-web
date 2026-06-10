@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid min-h-screen overflow-hidden lg:grid-cols-2">
+    <div className="grid h-dvh overflow-hidden lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </div>
         </div>
 
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto">
           <div className="w-full max-w-md">{children}</div>
         </div>
       </div>

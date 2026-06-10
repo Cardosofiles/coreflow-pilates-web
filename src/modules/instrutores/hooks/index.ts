@@ -1,3 +1,4 @@
+export * from './instrutor.keys'
 export * from './use-get-instrutores'
 export * from './use-get-instrutor'
 export * from './use-get-instrutor-me'

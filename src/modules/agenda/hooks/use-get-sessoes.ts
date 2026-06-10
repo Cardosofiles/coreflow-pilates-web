@@ -2,12 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { sessoesService } from "../actions/agenda-actions";
-
-export const SESSOES_QUERY_KEY = ["sessoes"] as const;
+import { sessaoKeys } from "./agenda.keys";
 
 export function useGetSessoes() {
   return useQuery({
-    queryKey: SESSOES_QUERY_KEY,
+    queryKey: sessaoKeys.all,
     queryFn: sessoesService.getAll,
   });
 }

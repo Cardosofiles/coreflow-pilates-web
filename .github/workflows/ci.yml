@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main] # ajuste/adicione aqui suas branches de trabalho (ex.: develop)
+
+# Cancela execuções antigas do mesmo ref quando um novo push chega (economiza minutos).
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Menor privilégio: este workflow só precisa ler o código.
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # pnpm precisa estar no PATH ANTES do setup-node, senão `cache: 'pnpm'` falha
+      # com "Unable to locate executable file: pnpm". A versão é lida do campo
+      # `packageManager` do package.json.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm type-check
+
+      # `next build` (smoke test rápido; já roda TS + ESLint internamente).
+      # Para validar também o adapter de deploy, troque por:
+      #   pnpm exec opennextjs-cloudflare build
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: production
+          CI: true

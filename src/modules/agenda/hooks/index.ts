@@ -1,3 +1,4 @@
+export * from "./agenda.keys";
 export * from "./use-get-agendamentos";
 export * from "./use-get-agendamento";
 export * from "./use-create-agendamento";

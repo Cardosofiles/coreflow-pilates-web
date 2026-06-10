@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 
 import { api } from '@/lib/api'
 import type { DashboardData } from '../types/dashboard.types'
+import { dashboardKeys } from './dashboard.keys'
 
 export function useGetDashboard() {
   return useQuery({
-    queryKey: ['dashboard'],
+    queryKey: dashboardKeys.all,
     queryFn: () => api.get<DashboardData>('/admin/dashboard').then(r => r.data),
     refetchInterval: 15000,
     refetchIntervalInBackground: false,
