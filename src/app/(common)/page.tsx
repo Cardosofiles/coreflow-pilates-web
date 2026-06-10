@@ -76,27 +76,25 @@ export default function LandingPage(): JSX.Element {
             className="rounded-lg object-cover"
             priority
           />
-          <span className="text-sm font-semibold tracking-tight">CoreFlow</span>
+          <span className="hidden sm:inline text-sm font-semibold tracking-tight">CoreFlow</span>
         </div>
 
         <div className="flex items-center gap-2">
           <div className="[&_button]:text-muted-foreground [&_button]:hover:bg-accent [&_button]:hover:text-foreground [&_button]:h-9 [&_button]:w-9 [&_button]:bg-transparent [&_button]:shadow-none">
             <ModeToggle />
           </div>
-          <Link href="/presentation">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-muted-foreground hover:text-foreground h-9 cursor-pointer px-5 text-xs font-medium"
-            >
-              Apresentação
-            </Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button size="sm" className="h-9 cursor-pointer px-5 text-xs font-medium">
-              Começar →
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground hover:text-foreground h-9 cursor-pointer px-5 text-xs font-medium"
+            asChild
+          >
+            <Link href="/presentation">Apresentação</Link>
+          </Button>
+
+          <Button asChild size="sm" className="h-9 cursor-pointer px-5 text-xs font-medium">
+            <Link href="/sign-in">Começar →</Link>
+          </Button>
         </div>
       </nav>
 
