@@ -1,6 +1,14 @@
 <div align="center" id="top">
 
-<h1 align="center">Projeto v2 Análise de Sistema I 💻 — CoreFlow Estúdio de Pilates</h1>
+# CoreFlow — Studio Management System
+
+Full-stack web application for pilates studio operations management.
+Built with Next.js App Router, TypeScript, TailwindCSS, TanStack Query and Better Auth.
+
+**Live:** [coreflow.vercel.app](https://coreflow-pilates-web.cardosofiles.workers.dev/)
+**Stack:** Next.js 16 · TypeScript · TailwindCSS · Shadcn UI · TanStack Query · Better Auth · Cloudflare Workers
+
+> Feature-Based Architecture with Module Colocation — scales without coupling.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
